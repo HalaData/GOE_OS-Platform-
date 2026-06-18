@@ -1,0 +1,10 @@
+id: "ERI"
+name: "Epistemic Rigidity Index"
+battery: "Ten_Gaps"
+question: "Is our certainty our prison?"
+forbidden_question: "What if the opposite of what we believe is true?"
+threshold: 0.65
+measurement_class: "mathematical"
+formula: "ERI"
+keywords: ["certainly", "undoubtedly", "absolutely", "without doubt", "definitely"]
+ecc: 0.95
