@@ -1,0 +1,43 @@
+GOE_OS/
+├── main.py                          # الخادم الخلفي (بدون تغيير)
+├── ui/
+│   ├── app.py                       # Streamlit (للمطورين - يبقى)
+│   ├── dashboard.html               # HTML بسيط (يبقى)
+│   └── web/                         # 🆕 واجهة React الاحترافية
+│       ├── package.json
+│       ├── vite.config.ts
+│       ├── tailwind.config.js
+│       ├── postcss.config.js
+│       ├── tsconfig.json
+│       ├── index.html
+│       └── src/
+│           ├── main.tsx
+│           ├── App.tsx
+│           ├── index.css
+│           ├── api/
+│           │   └── client.ts
+│           ├── components/
+│           │   ├── Layout/
+│           │   │   ├── Sidebar.tsx
+│           │   │   └── Header.tsx
+│           │   ├── Dashboard/
+│           │   │   ├── StatsCards.tsx
+│           │   │   └── Charts.tsx
+│           │   └── common/
+│           │       └── ThemeToggle.tsx
+│           ├── pages/
+│           │   ├── Dashboard.tsx
+│           │   ├── Governance.tsx
+│           │   ├── Analysis.tsx
+│           │   ├── Generation.tsx
+│           │   ├── Foresight.tsx
+│           │   ├── Law.tsx
+│           │   ├── Medicine.tsx
+│           │   ├── Agriculture.tsx
+│           │   └── Settings.tsx
+│           ├── hooks/
+│           │   └── useApi.ts
+│           ├── types/
+│           │   └── index.ts
+│           └── utils/
+│               └── helpers.ts
