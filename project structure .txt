@@ -1,0 +1,107 @@
+GOE_OS/
+│
+├── main.py                         # نقطة الدخول الرئيسية
+├── requirements.txt                # التبعيات
+├── Dockerfile                      # بناء صورة Docker
+├── docker-compose.yml              # تشغيل الخدمات
+├── prometheus.yml                  # تكوين Prometheus
+├── .gitignore
+├── README.md
+│
+├── core/                           # النواة الأساسية
+│   ├── __init__.py
+│   ├── engine.py                   # المحرك الرئيسي (Singleton)
+│   ├── loader.py                   # تحميل كسول (Lazy Loading)
+│   └── utils.py                    # دوال مساعدة موحدة
+│
+├── modules/                        # الوحدات (20+ مجالاً)
+│   ├── __init__.py
+│   ├── governance/                 # الحوكمة المعرفية
+│   │   ├── __init__.py
+│   │   └── engine.py
+│   ├── analysis/                   # التحليل العميق
+│   │   ├── __init__.py
+│   │   └── engine.py
+│   ├── generation/                 # التوليد الإبداعي
+│   │   ├── __init__.py
+│   │   └── engine.py
+│   ├── i18n/                       # الترجمة والتدويل
+│   │   ├── __init__.py
+│   │   └── engine.py
+│   ├── law/                        # القانون الذكي
+│   │   ├── __init__.py
+│   │   └── engine.py
+│   ├── medicine/                   # الطب
+│   │   ├── __init__.py
+│   │   └── engine.py
+│   ├── agriculture/                # الزراعة
+│   │   ├── __init__.py
+│   │   └── engine.py
+│   ├── physics/                    # الفيزياء
+│   │   ├── __init__.py
+│   │   └── engine.py
+│   ├── music/                      # الموسيقى
+│   │   ├── __init__.py
+│   │   └── engine.py
+│   ├── sports/                     # الرياضة
+│   │   ├── __init__.py
+│   │   └── engine.py
+│   ├── economics/                  # الاقتصاد وريادة الأعمال
+│   │   ├── __init__.py
+│   │   └── engine.py
+│   ├── education/                  # التعليم
+│   │   ├── __init__.py
+│   │   └── engine.py
+│   ├── foresight/                  # الاستشراف
+│   │   ├── __init__.py
+│   │   └── engine.py
+│   ├── strategy/                   # التخطيط الاستراتيجي
+│   │   ├── __init__.py
+│   │   └── engine.py
+│   ├── integration/                # التكامل
+│   │   ├── __init__.py
+│   │   └── engine.py
+│   ├── media/                      # الوسائط
+│   │   ├── __init__.py
+│   │   └── engine.py
+│   ├── accessibility/              # الإتاحة الشاملة
+│   │   ├── __init__.py
+│   │   └── engine.py
+│   ├── kids/                       # منصة الأطفال
+│   │   ├── __init__.py
+│   │   └── engine.py
+│   ├── empowerment/                # تمكين المطورين
+│   │   ├── __init__.py
+│   │   └── engine.py
+│   ├── agents/                     # الوكلاء العلميون
+│   │   ├── __init__.py
+│   │   └── engine.py
+│   ├── cybernetic_governance/      # الحوكمة السيبرنطيقية
+│   │   ├── __init__.py
+│   │   └── engine.py
+│   └── entrepreneurship/           # تحليل المخاطر للشركات الناشئة
+│       ├── __init__.py
+│       └── advanced_risk_engine.py
+│
+├── indicators/                     # تعريفات المؤشرات
+│   └── definitions/
+│       ├── PAI.yaml
+│       ├── CGI.yaml
+│       ├── ERI.yaml
+│       ├── FQI.yaml
+│       ├── AGI.yaml
+│       ├── DIC.yaml
+│       ├── MCI.yaml
+│       ├── LRI.yaml
+│       └── SAI.yaml
+│
+├── config/                         # الإعدادات
+│   └── decision_tree.yaml
+│
+├── tests/                          # الاختبارات
+│   └── test_core.py
+│
+├── data/                           # بيانات التشغيل (تنشأ تلقائياً)
+├── logs/                           # السجلات (تنشأ تلقائياً)
+└── reports/                        # التقارير
+    └── output/                     # مخرجات التقارير (تنشأ تلقائياً)
