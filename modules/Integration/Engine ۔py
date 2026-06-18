@@ -1,0 +1,64 @@
+"""
+GOE OS - Integration Engine
+التكامل: ربط الأنظمة الخارجية، قواعد البيانات، السحابة
+"""
+
+import logging
+from typing import Dict, List, Any, Optional
+from datetime import datetime
+import hashlib
+
+logger = logging.getLogger("GOE_OS.Integration")
+
+class IntegrationEngine:
+    """
+    محرك التكامل - ربط الأنظمة الخارجية، قواعد البيانات، السحابة
+    """
+    
+    def __init__(self):
+        self.connections = {}
+        self.integration_history = []
+        logger.info("✅ Integration Engine initialized")
+    
+    def connect(self, data: Dict) -> Dict:
+        """ربط نظام خارجي"""
+        system_type = data.get("system_type", "")
+        config = data.get("config", {})
+        
+        if not system_type:
+            return {"status": "error", "message": "نوع النظام مطلوب"}
+        
+        connection_id = hashlib.md5(f"{system_type}{datetime.now()}".encode()).hexdigest()[:8]
+        
+        connection = {
+            "id": connection_id,
+            "system_type": system_type,
+            "config": config,
+            "status": "connected",
+            "connected_at": datetime.now().isoformat()
+        }
+        
+        self.connections[connection_id] = connection
+        self.integration_history.append(connection)
+        
+        return {
+            "status": "success",
+            "connection": connection,
+            "message": f"تم ربط {system_type} بنجاح"
+        }
+    
+    def get_status(self) -> Dict:
+        """حالة التكاملات"""
+        return {
+            "total_connections": len(self.connections),
+            "connections": list(self.connections.keys()),
+            "active": len([c for c in self.connections.values() if c["status"] == "connected"]),
+            "timestamp": datetime.now().isoformat()
+        }
+    
+    def disconnect(self, connection_id: str) -> Dict:
+        """فصل نظام"""
+        if connection_id in self.connections:
+            self.connections[connection_id]["status"] = "disconnected"
+            return {"status": "success", "message": f"تم فصل {connection_id}"}
+        return {"status": "error", "message": "الربط غير موجود"}
