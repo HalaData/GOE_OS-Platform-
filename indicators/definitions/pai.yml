@@ -1,0 +1,10 @@
+id: "PAI"
+name: "Procedural Absence Index"
+battery: "Ten_Gaps"
+question: "Who has not yet been invited to this table?"
+forbidden_question: "When does our zeal to invite every absent person become a veto that prevents action?"
+threshold: 0.7
+measurement_class: "mathematical"
+formula: "PAI"
+keywords: ["invited", "participated", "consulted", "all parties", "transparency"]
+ecc: 1.0
