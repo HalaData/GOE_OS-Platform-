@@ -1,0 +1,13 @@
+id: "MCI"
+name: "Meta-Cognitive Index"
+battery: "Ten_Gaps"
+question: "Does the text acknowledge its limits?"
+forbidden_question: "What is the one thing this framework refuses to question about itself?"
+threshold: 0.6
+measurement_class: "semi_mathematical"
+keywords: ["we may be wrong", "limits of our knowledge", "uncertainty", "further research", "preliminary"]
+weights:
+  "we may be wrong": -0.8
+  "limits of our knowledge": -0.8
+  uncertainty: -0.5
+ecc: 0.7
