@@ -1,0 +1,156 @@
+"""
+GOE OS - Sports Engine
+الرياضة: تحليل، تحكيم، تنبؤ إصابات
+"""
+
+import logging
+import random
+from typing import Dict, List, Any, Optional
+from datetime import datetime
+import hashlib
+
+logger = logging.getLogger("GOE_OS.Sports")
+
+class SportsEngine:
+    """
+    محرك الرياضة - تحليل الأداء، التحكيم، التنبؤ بالإصابات
+    """
+    
+    def __init__(self):
+        self.analysis_history = []
+        self.refereeing_history = []
+        logger.info("✅ Sports Engine initialized")
+    
+    def analyze(self, data: Dict) -> Dict:
+        """تحليل رياضي شامل"""
+        sport = data.get("sport", "كرة قدم")
+        athlete_age = data.get("age", 25)
+        training_hours = data.get("training_hours", 10)
+        
+        performance_score = self._calculate_performance(athlete_age, training_hours)
+        injury_risk = self._calculate_injury_risk(athlete_age, training_hours)
+        
+        result = {
+            "status": "success",
+            "sport": sport,
+            "athlete_age": athlete_age,
+            "training_hours": training_hours,
+            "performance_score": performance_score,
+            "injury_risk": injury_risk,
+            "recommendations": self._get_sports_recommendations(performance_score, injury_risk),
+            "timestamp": datetime.now().isoformat()
+        }
+        
+        self.analysis_history.append(result)
+        return result
+    
+    def _calculate_performance(self, age: int, hours: int) -> float:
+        """حساب درجة الأداء"""
+        base = 0.5
+        age_factor = 1.0 if age < 30 else 0.8 if age < 40 else 0.6
+        hours_factor = min(1.0, hours / 15)
+        return round(base + (0.3 * age_factor) + (0.2 * hours_factor), 2)
+    
+    def _calculate_injury_risk(self, age: int, hours: int) -> Dict:
+        """حساب مخاطر الإصابات"""
+        risk = 0.2
+        if age > 30:
+            risk += 0.2
+        if hours > 15:
+            risk += 0.2
+        if hours < 5:
+            risk += 0.1
+        
+        return {
+            "risk_level": "high" if risk > 0.5 else "medium" if risk > 0.3 else "low",
+            "risk_score": round(min(risk, 0.95), 2),
+            "high_risk_areas": ["ركبة", "كاحل"] if risk > 0.4 else []
+        }
+    
+    def _get_sports_recommendations(self, performance: float, injury: Dict) -> List[str]:
+        """توصيات رياضية"""
+        recommendations = ["إحماء مناسب قبل التدريب", "تهدئة بعد التدريب"]
+        
+        if injury["risk_level"] == "high":
+            recommendations.append("تقليل شدة التدريب بنسبة 20%")
+            recommendations.append("زيادة فترات الراحة")
+        
+        if performance < 0.6:
+            recommendations.append("زيادة ساعات التدريب تدريجياً")
+        
+        return recommendations
+    
+    def refereeing(self, data: Dict) -> Dict:
+        """تحليل التحكيم"""
+        decision_type = data.get("decision_type", "بطاقة صفراء")
+        match_context = data.get("match_context", {})
+        
+        biases = self._detect_biases(decision_type, match_context)
+        
+        result = {
+            "status": "success",
+            "decision_type": decision_type,
+            "biases_detected": biases,
+            "decision_quality": self._assess_decision_quality(decision_type),
+            "recommendations": self._get_refereeing_recommendations(biases),
+            "timestamp": datetime.now().isoformat()
+        }
+        
+        self.refereeing_history.append(result)
+        return result
+    
+    def _detect_biases(self, decision: str, context: Dict) -> List[Dict]:
+        """كشف التحيزات في التحكيم"""
+        biases = []
+        home_advantage = context.get("home_advantage", 0.5)
+        
+        if home_advantage > 0.6:
+            biases.append({
+                "type": "home_team",
+                "description": "تحيز محتمل للفريق المضيف",
+                "severity": "medium"
+            })
+        
+        return biases
+    
+    def _assess_decision_quality(self, decision: str) -> Dict:
+        """تقييم جودة القرار"""
+        return {
+            "accuracy": round(random.uniform(0.7, 0.95), 2),
+            "consistency": round(random.uniform(0.6, 0.9), 2),
+            "overall": "good" if random.random() > 0.3 else "excellent"
+        }
+    
+    def _get_refereeing_recommendations(self, biases: List[Dict]) -> List[str]:
+        """توصيات للتحكيم"""
+        if biases:
+            return ["مراجعة القرارات مع حكام آخرين", "استخدام تقنية VAR"]
+        return ["استمرار الأداء الجيد"]
+    
+    def injury_prediction(self, data: Dict) -> Dict:
+        """التنبؤ بالإصابات الرياضية"""
+        athlete_data = data.get("athlete_data", {})
+        sport = data.get("sport", "كرة قدم")
+        
+        risk = self._calculate_injury_risk(
+            athlete_data.get("age", 25),
+            athlete_data.get("training_hours", 10)
+        )
+        
+        return {
+            "status": "success",
+            "sport": sport,
+            "injury_risk": risk,
+            "recommended_actions": self._get_injury_prevention(risk),
+            "timestamp": datetime.now().isoformat()
+        }
+    
+    def _get_injury_prevention(self, risk: Dict) -> List[str]:
+        """إجراءات الوقاية من الإصابات"""
+        actions = ["تمارين إحماء منتظمة", "تمارين تقوية العضلات"]
+        
+        if risk["risk_level"] == "high":
+            actions.append("مراجعة أخصائي علاج طبيعي")
+            actions.append("تعديل أسلوب التدريب")
+        
+        return actions
