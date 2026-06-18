@@ -20,9 +20,11 @@ GOE OS is a cybernetic knowledge operating system built on FastAPI, providing RE
 - Python 3.10+ compatible
   
 🏷️Tags
+
 goe-os, governance, cybernetics, ai, nlp, knowledge-management, risk-analysis, startup-analysis, legal-tech, health-tech, agritech, music-tech, sports-tech, education, accessibility, kids, arabic, translation, code-generation, foresight, unlimited-scenarios, open-source
 
 📊Badges
+
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://python.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115.0-green)](https://fastapi.tiangolo.com)
 [![License](https://img.shields.io/badge/License-GOE-blue)](https://goe-os.com)
@@ -42,5 +44,6 @@ An integrated platform for knowledge governance, deep text analysis, unlimited f
 🔹 Fully open-source
 
 📝Topics 
+
 goe-os, knowledge-governance, cybernetics, ai-platform, nlp, code-generation, legal-tech, health-tech, agritech, music-tech, sports-analytics, education-platform, accessibility, arabic-nlp, translation-api, risk-analysis, startup-analyzer, open-source, fastapi, python
   
