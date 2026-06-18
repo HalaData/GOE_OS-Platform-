@@ -1,0 +1,13 @@
+id: "AGI"
+name: "Actor Gap Index"
+battery: "Ten_Gaps"
+question: "Who is excluded from decision-making?"
+forbidden_question: "Who benefits from keeping them excluded?"
+threshold: 0.7
+measurement_class: "semi_mathematical"
+keywords: ["excluded", "absent", "missing", "not invited", "left out"]
+weights:
+  excluded: 1.0
+  absent: 1.0
+  missing: 0.8
+ecc: 0.7
