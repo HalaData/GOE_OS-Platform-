@@ -46,4 +46,37 @@ An integrated platform for knowledge governance, deep text analysis, unlimited f
 📝Topics 
 
 goe-os, knowledge-governance, cybernetics, ai-platform, nlp, code-generation, legal-tech, health-tech, agritech, music-tech, sports-analytics, education-platform, accessibility, arabic-nlp, translation-api, risk-analysis, startup-analyzer, open-source, fastapi, python
+
+# 🧠 GOE OS - Governance of Ontology & Epistemology Operating System
+
+**منصة الحوكمة المعرفية الشاملة**
+
+---
+
+## 📖 عن المنصة
+
+GOE OS هي منصة سيبرنطيقية متكاملة للحوكمة المعرفية، تجمع بين:
+- **تحليل النصوص العميق** واكتشاف المسلمات والفجوات
+- **التوليد الإبداعي** للأكواد والمحتوى والخطط الاستراتيجية
+- **الاستشراف** المستقبلي وتوليد السيناريوهات غير المحدودة
+- **الحوكمة المعرفية** عبر مؤشرات وأسئلة محرمة
+- **دعم 20+ لغة** مع ترجمة فورية
+- **دعم الفيديو والصوت** مع تفريغ وترجمة
+- **الإتاحة الشاملة** للصم والبكم والكفيفين
+- **منصة للأطفال** مع ألعاب وقصص تفاعلية
+- **تمكين المطورين** بأدوات تفاعلية وتلعيب
+
+---
+
+## 🚀 التشغيل السريع
+
+```bash
+# 1. تثبيت التبعيات
+pip install -r requirements.txt
+
+# 2. تشغيل الخادم
+uvicorn main:app --reload
+
+# 3. فتح الواجهة
+http://localhost:8000/docs
   
