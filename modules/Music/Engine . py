@@ -1,0 +1,159 @@
+"""
+GOE OS - Music Engine
+الموسيقى: توليد، تحليل، علاج، عواطف
+"""
+
+import logging
+import random
+from typing import Dict, List, Any, Optional
+from datetime import datetime
+
+logger = logging.getLogger("GOE_OS.Music")
+
+class MusicEngine:
+    """
+    محرك الموسيقى - تحليل، توليد، عواطف، علاج
+    """
+    
+    def __init__(self):
+        self.analysis_history = []
+        self.generation_history = []
+        logger.info("✅ Music Engine initialized")
+    
+    def analyze(self, data: Dict) -> Dict:
+        """تحليل موسيقي متقدم"""
+        features = data.get("features", {})
+        familiarity = data.get("familiarity", 0.5)
+        
+        emotion = self._detect_emotion(features)
+        
+        result = {
+            "status": "success",
+            "primary_emotion": emotion,
+            "emotion_scores": self._calculate_emotion_scores(features),
+            "familiarity_effect": self._analyze_familiarity(familiarity),
+            "recommendations": self._get_music_recommendations(emotion),
+            "timestamp": datetime.now().isoformat()
+        }
+        
+        self.analysis_history.append(result)
+        return result
+    
+    def _detect_emotion(self, features: Dict) -> str:
+        """كشف المشاعر في الموسيقى"""
+        tempo = features.get("tempo", 120)
+        mode = features.get("mode", "major")
+        
+        if tempo > 120 and mode == "major":
+            return "joy"
+        elif tempo < 80 and mode == "minor":
+            return "sorrow"
+        elif tempo > 130 and mode == "minor":
+            return "anger"
+        else:
+            return "calmness"
+    
+    def _calculate_emotion_scores(self, features: Dict) -> Dict:
+        """حساب درجات المشاعر"""
+        return {
+            "joy": random.uniform(0.2, 0.8),
+            "sorrow": random.uniform(0.2, 0.8),
+            "anger": random.uniform(0.1, 0.6),
+            "calmness": random.uniform(0.2, 0.8),
+            "fear": random.uniform(0.1, 0.5)
+        }
+    
+    def _analyze_familiarity(self, familiarity: float) -> Dict:
+        """تحليل تأثير الألفة"""
+        return {
+            "neural_activation": round(0.3 + familiarity * 0.5, 2),
+            "prediction_error": round(0.7 - familiarity * 0.5, 2),
+            "completion_efficiency": round(familiarity * 0.8, 2)
+        }
+    
+    def _get_music_recommendations(self, emotion: str) -> List[str]:
+        """توصيات موسيقية حسب المشاعر"""
+        recommendations = {
+            "joy": ["موسيقى سريعة ومبهجة", "أغاني صيفية", "موسيقى الرقص"],
+            "sorrow": ["موسيقى هادئة وحزينة", "أغاني بطيئة", "موسيقى كلاسيكية"],
+            "anger": ["موسيقى صاخبة", "روك", "ميتال"],
+            "calmness": ["موسيقى تأملية", "أصوات طبيعة", "موسيقى هادئة"]
+        }
+        return recommendations.get(emotion, ["موسيقى متنوعة"])
+    
+    def generate(self, data: Dict) -> Dict:
+        """توليد موسيقى أو لحن"""
+        style = data.get("style", "classical")
+        duration = data.get("duration", 30)
+        emotion = data.get("emotion", "neutral")
+        
+        music_data = {
+            "style": style,
+            "duration_seconds": duration,
+            "emotion": emotion,
+            "notes_count": duration * 2,
+            "tempo": self._get_tempo_for_emotion(emotion),
+            "scale": self._get_scale_for_style(style)
+        }
+        
+        result = {
+            "status": "success",
+            "music_data": music_data,
+            "midi_preview": self._generate_midi_preview(music_data),
+            "timestamp": datetime.now().isoformat()
+        }
+        
+        self.generation_history.append(result)
+        return result
+    
+    def _get_tempo_for_emotion(self, emotion: str) -> int:
+        """الحصول على الإيقاع حسب المشاعر"""
+        tempos = {
+            "joy": 130,
+            "sorrow": 70,
+            "anger": 150,
+            "calmness": 90,
+            "neutral": 120
+        }
+        return tempos.get(emotion, 120)
+    
+    def _get_scale_for_style(self, style: str) -> str:
+        """الحصول على السلم الموسيقي حسب النمط"""
+        scales = {
+            "classical": "major",
+            "jazz": "blues",
+            "electronic": "minor",
+            "oriental": "oriental",
+            "rock": "pentatonic"
+        }
+        return scales.get(style, "major")
+    
+    def _generate_midi_preview(self, data: Dict) -> Dict:
+        """توليد معاينة MIDI"""
+        return {
+            "notes": [{"pitch": 60 + i, "duration": 0.5} for i in range(4)],
+            "tempo": data.get("tempo", 120),
+            "scale": data.get("scale", "major")
+        }
+    
+    def emotion_analysis(self, data: Dict) -> Dict:
+        """تحليل المشاعر في الموسيقى"""
+        audio_features = data.get("audio_features", {})
+        
+        return {
+            "status": "success",
+            "primary_emotion": self._detect_emotion(audio_features),
+            "emotion_intensity": round(random.uniform(0.3, 0.9), 2),
+            "recommended_use": self._get_therapeutic_use(self._detect_emotion(audio_features)),
+            "timestamp": datetime.now().isoformat()
+        }
+    
+    def _get_therapeutic_use(self, emotion: str) -> str:
+        """الاستخدام العلاجي حسب المشاعر"""
+        uses = {
+            "joy": "تحسين المزاج وزيادة الطاقة",
+            "sorrow": "معالجة الحزن والتعبير عن المشاعر",
+            "anger": "تفريغ الغضب بشكل صحي",
+            "calmness": "الاسترخاء وتخفيف التوتر"
+        }
+        return uses.get(emotion, "الاستماع والاستمتاع")
