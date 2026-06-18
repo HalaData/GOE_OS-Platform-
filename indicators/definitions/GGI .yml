@@ -1,0 +1,13 @@
+id: "CGI"
+name: "Credibility Gap Index"
+battery: "Ten_Gaps"
+question: "How many promises have we made, and how many have we kept?"
+forbidden_question: "What promise are we afraid to admit we broke?"
+threshold: 0.7
+measurement_class: "semi_mathematical"
+keywords: ["promise", "commitment", "deliver", "pledge"]
+weights:
+  promise: 1.0
+  commitment: 1.0
+  deliver: -0.5
+ecc: 0.7
