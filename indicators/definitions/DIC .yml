@@ -1,0 +1,13 @@
+id: "DIC"
+name: "Diversity Index"
+battery: "Ten_Gaps"
+question: "How many perspectives are represented?"
+forbidden_question: "Which perspective is systematically silenced?"
+threshold: 0.7
+measurement_class: "semi_mathematical"
+keywords: ["diverse", "inclusive", "representation", "minority", "marginalized"]
+weights:
+  diverse: -0.5
+  inclusive: -0.5
+  marginalized: 1.0
+ecc: 0.7
