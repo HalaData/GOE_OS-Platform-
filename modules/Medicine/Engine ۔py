@@ -1,0 +1,231 @@
+"""
+GOE OS - Medicine Engine
+الطب: تشخيص، طب تجديدي، تغذية، تصوير، تنبؤ
+"""
+
+import logging
+import random
+from typing import Dict, List, Any, Optional
+from datetime import datetime
+import hashlib
+
+logger = logging.getLogger("GOE_OS.Medicine")
+
+class MedicineEngine:
+    """
+    محرك الطب - تشخيص، طب تجديدي، تغذية علاجية
+    """
+    
+    def __init__(self):
+        self.diagnosis_history = []
+        self.regenerative_history = []
+        logger.info("✅ Medicine Engine initialized")
+    
+    def diagnose(self, data: Dict) -> Dict:
+        """تشخيص طبي مبدئي"""
+        symptoms = data.get("symptoms", [])
+        age = data.get("age", 30)
+        risk_factors = data.get("risk_factors", [])
+        
+        if not symptoms:
+            return {"status": "error", "message": "لا توجد أعراض للتشخيص"}
+        
+        # البحث عن أمراض محتملة
+        possible_diseases = self._search_diseases(symptoms)
+        
+        # تقييم الخطورة
+        severity = self._assess_severity(symptoms, age, risk_factors)
+        
+        result = {
+            "status": "success",
+            "possible_diseases": possible_diseases,
+            "severity": severity,
+            "recommendations": self._get_recommendations(severity),
+            "disclaimer": "هذا تشخيص مبدئي. يُرجى استشارة طبيب مختص للتأكيد",
+            "timestamp": datetime.now().isoformat()
+        }
+        
+        self.diagnosis_history.append(result)
+        return result
+    
+    def _search_diseases(self, symptoms: List[str]) -> List[Dict]:
+        """البحث عن أمراض محتملة"""
+        diseases = []
+        symptom_text = " ".join(symptoms).lower()
+        
+        # قاعدة بيانات أمراض بسيطة
+        disease_db = {
+            "السكري": ["عطش", "تبول", "جوع", "تعب", "تشوش"],
+            "ارتفاع الضغط": ["صداع", "ضيق تنفس", "احمرار"],
+            "الربو": ["ضيق تنفس", "صفير", "سعال", "ضيق صدر"]
+        }
+        
+        for disease, disease_symptoms in disease_db.items():
+            match_count = sum(1 for s in disease_symptoms if s in symptom_text)
+            if match_count > 0:
+                diseases.append({
+                    "name": disease,
+                    "match_score": round(match_count / len(disease_symptoms), 2),
+                    "symptoms_matched": [s for s in disease_symptoms if s in symptom_text]
+                })
+        
+        return sorted(diseases, key=lambda x: x["match_score"], reverse=True)[:3]
+    
+    def _assess_severity(self, symptoms: List[str], age: int, risk_factors: List[str]) -> str:
+        """تقييم خطورة الحالة"""
+        severity_score = len(symptoms) * 0.1
+        
+        if age > 60:
+            severity_score += 0.3
+        elif age < 5:
+            severity_score += 0.4
+        
+        if len(risk_factors) > 2:
+            severity_score += 0.2
+        
+        if severity_score > 0.7:
+            return "عالية - يُنصح بمراجعة طبية عاجلة"
+        elif severity_score > 0.4:
+            return "متوسطة - يُنصح بمراجعة طبيب خلال أيام"
+        else:
+            return "منخفضة - يمكن مراقبة الأعراض"
+    
+    def _get_recommendations(self, severity: str) -> List[str]:
+        """توليد توصيات طبية"""
+        if "عالية" in severity:
+            return ["مراجعة قسم الطوارئ فوراً", "عدم تناول أي أدوية دون استشارة"]
+        elif "متوسطة" in severity:
+            return ["مراجعة طبيب مختص", "مراقبة الأعراض"]
+        else:
+            return ["مراقبة الأعراض", "الحفاظ على نمط حياة صحي"]
+    
+    def regenerative_analysis(self, data: Dict) -> Dict:
+        """تحليل الطب التجديدي والجروح"""
+        wound_size = data.get("wound_size_cm", 2)
+        wound_type = data.get("wound_type", "surgical")
+        patient_age = data.get("patient_age", 40)
+        diabetes = data.get("diabetes", False)
+        
+        predicted_days = self._predict_healing_time(wound_size, wound_type, patient_age, diabetes)
+        
+        return {
+            "status": "success",
+            "wound_size_cm": wound_size,
+            "wound_type": wound_type,
+            "predicted_healing_days": predicted_days,
+            "recommended_treatments": self._get_regenerative_treatments(wound_type, diabetes),
+            "timestamp": datetime.now().isoformat()
+        }
+    
+    def _predict_healing_time(self, size: float, wtype: str, age: int, diabetes: bool) -> int:
+        """التنبؤ بزمن التئام الجرح"""
+        base_days = 14
+        size_factor = size * 2
+        type_factors = {"surgical": 0.8, "traumatic": 1.2, "burn": 1.5, "chronic": 2.0}
+        type_factor = type_factors.get(wtype, 1.0)
+        age_factor = 1.0 + (age - 30) / 100 if age > 30 else 1.0
+        diabetes_factor = 1.5 if diabetes else 1.0
+        
+        return int(base_days * size_factor * type_factor * age_factor * diabetes_factor)
+    
+    def _get_regenerative_treatments(self, wtype: str, diabetes: bool) -> List[str]:
+        """الحصول على علاجات تجديدية مقترحة"""
+        treatments = ["تنظيف الجرح وتعقيمه", "تغطية الجرح بضمادة مناسبة"]
+        
+        if diabetes:
+            treatments.append("مراقبة مستوى السكر في الدم بدقة")
+        
+        if wtype == "chronic":
+            treatments.append("علاج بالأكسجين عالي الضغط")
+        
+        return treatments
+    
+    def nutrition_analysis(self, data: Dict) -> Dict:
+        """تحليل التغذية العلاجية"""
+        condition = data.get("condition", "")
+        age = data.get("age", 40)
+        bmi = data.get("bmi", 22)
+        allergies = data.get("allergies", [])
+        
+        return {
+            "status": "success",
+            "condition": condition,
+            "recommendations": self._get_nutrition_recommendations(condition, bmi),
+            "foods_to_eat": self._get_foods_to_eat(condition),
+            "foods_to_avoid": self._get_foods_to_avoid(condition),
+            "timestamp": datetime.now().isoformat()
+        }
+    
+    def _get_nutrition_recommendations(self, condition: str, bmi: float) -> List[str]:
+        """توصيات غذائية"""
+        recommendations = ["شرب كمية كافية من الماء (2-3 لتر يومياً)"]
+        
+        if condition == "diabetes":
+            recommendations.extend(["توزيع الكربوهيدرات على مدار اليوم", "زيادة الألياف"])
+        elif condition == "hypertension":
+            recommendations.extend(["تقليل الصوديوم", "زيادة البوتاسيوم"])
+        elif condition == "ibs":
+            recommendations.extend(["نظام FODMAP المنخفض", "وجبات صغيرة متكررة"])
+        
+        if bmi > 30:
+            recommendations.append("تخفيض السعرات الحرارية لإنقاص الوزن")
+        
+        return recommendations
+    
+    def _get_foods_to_eat(self, condition: str) -> List[str]:
+        """أطعمة مفيدة"""
+        if condition == "diabetes":
+            return ["الخضروات غير النشوية", "الحبوب الكاملة", "المكسرات", "الأسماك الدهنية"]
+        elif condition == "hypertension":
+            return ["الخضروات الورقية", "الموز", "اللبن قليل الدسم", "الأسماك"]
+        else:
+            return ["الخضروات", "الفواكه", "البروتينات الخالية من الدهون"]
+    
+    def _get_foods_to_avoid(self, condition: str) -> List[str]:
+        """أطعمة يجب تجنبها"""
+        if condition == "diabetes":
+            return ["المشروبات السكرية", "الحلويات", "الخبز الأبيض"]
+        elif condition == "hypertension":
+            return ["الملح المضاف", "اللحوم المصنعة", "الأطعمة المعلبة"]
+        else:
+            return ["الأطعمة المصنعة", "السكريات المضافة"]
+    
+    def tooth_regeneration(self, data: Dict) -> Dict:
+        """استشارة نمو أسنان جديدة"""
+        age = data.get("age", 40)
+        missing_teeth = data.get("missing_teeth_count", 1)
+        cause = data.get("cause_of_loss", "decay")
+        
+        return {
+            "status": "success",
+            "patient_age": age,
+            "missing_teeth": missing_teeth,
+            "cause_of_loss": cause,
+            "candidacy_score": self._calculate_candidacy(age, missing_teeth, cause),
+            "recommended_treatment": self._recommend_treatment(age, cause),
+            "references": [
+                "TRG-035 (Toregem) - Phase II trials 2026",
+                "Metformin resin - Journal of Dentistry 2025"
+            ],
+            "timestamp": datetime.now().isoformat()
+        }
+    
+    def _calculate_candidacy(self, age: int, missing: int, cause: str) -> float:
+        """حساب مدى ملاءمة المريض"""
+        score = 0.5
+        if age < 30:
+            score += 0.25
+        elif age < 50:
+            score += 0.15
+        if cause == "congenital":
+            score += 0.1
+        return min(0.95, score)
+    
+    def _recommend_treatment(self, age: int, cause: str) -> Dict:
+        """توصية بالعلاج الأنسب"""
+        if cause == "congenital" and age < 40:
+            return {"name": "TRG-035", "availability": "2030", "priority": "high"}
+        elif age < 18:
+            return {"name": "A-PRF+", "availability": "2027-2029", "priority": "high"}
+        else:
+            return {"name": "Metformin Resin", "availability": "2028-2030", "priority": "medium"}
