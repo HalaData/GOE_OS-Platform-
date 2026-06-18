@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+.env
+venv/
+env/
+ENV/
+dist/
+build/
+*.egg-info/
+*.egg
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
+logs/
+
+# Local configuration
+config/local.yaml
+config/books/*.yaml
+
+# Audio / temporary files
+*.wav
+*.mp3
+*.mp4
+/tmp/
+
+# Models (large files)
+*.pt
+*.pth
+*.bin
+models/
+
+# Data
+data/*.db
+data/backups/
+
+# Reports
+reports/output/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Coverage
+.coverage
+htmlcov/
+
+# Docker
+*.pid
