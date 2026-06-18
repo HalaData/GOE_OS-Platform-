@@ -1,0 +1,303 @@
+# ============================================================
+# GOE OS - Decision Tree Configuration
+# شجرة القرار لتصنيف المجالات وتحديد المؤشرات المناسبة
+# ============================================================
+
+# ============================================================
+# المجال العام (General)
+# ============================================================
+general:
+  battery: "Ten_Gaps"
+  indicators:
+    - PAI      # Procedural Absence Index
+    - CGI      # Credibility Gap Index
+    - DIC      # Diversity Index
+    - SAI      # Semantic Alienation Index
+    - EAI      # Existential Anxiety Index
+    - SVI      # Structural Vulnerability Index
+    - TMI      # Trust Misalignment Index
+    - NVEI     # Non-Vocal Entity Index
+    - ADI      # Actor Diversity Index
+    - MCI      # Meta-Cognitive Index
+
+# ============================================================
+# مجال القانون (Law)
+# ============================================================
+law:
+  # القوانين الدستورية
+  constitution:
+    battery: "CNVI"
+    indicators:
+      - PAI
+      - CGI
+      - LRI
+      - SAI
+  
+  # قوانين الطوارئ
+  emergency:
+    battery: "SEVI"
+    indicators:
+      - PAI
+      - ERI
+      - FQI
+  
+  # قوانين الأسرة
+  family:
+    battery: "FSVI"
+    indicators:
+      - PAI
+      - CGI
+      - AGI
+  
+  # قوانين العمل
+  labour:
+    battery: "LSVI"
+    indicators:
+      - PAI
+      - CGI
+      - DIC
+      - MCI
+  
+  # القوانين التجارية
+  commercial:
+    battery: "TVI"
+    indicators:
+      - PAI
+      - CGI
+      - ERI
+      - FQI
+  
+  # القوانين الافتراضية
+  default:
+    battery: "LVI"
+    indicators:
+      - PAI
+      - CGI
+      - LRI
+      - SAI
+      - ERI
+
+# ============================================================
+# مجال البيئة (Environment)
+# ============================================================
+environment:
+  battery: "ENVI"
+  indicators:
+    - PAI
+    - CGI
+    - DIC
+    - SAI
+    - AGI
+
+# ============================================================
+# مجال التجارة (Commerce)
+# ============================================================
+commerce:
+  battery: "TVI"
+  indicators:
+    - PAI
+    - CGI
+    - ERI
+    - FQI
+    - MCI
+
+# ============================================================
+# مجال الذكاء الاصطناعي (AI)
+# ============================================================
+ai:
+  battery: "AIVI"
+  indicators:
+    - PAI
+    - CGI
+    - ERI
+    - FQI
+    - AGI
+    - MCI
+    - DIC
+
+# ============================================================
+# مجال الدبلوماسية (Diplomacy)
+# ============================================================
+diplomacy:
+  battery: "DVI"
+  indicators:
+    - PAI
+    - CGI
+    - ERI
+    - SAI
+    - FQI
+
+# ============================================================
+# مجال الطب (Medicine)
+# ============================================================
+medicine:
+  battery: "MEI"
+  indicators:
+    - PAI
+    - CGI
+    - ERI
+    - MCI
+    - AGI
+    - DIC
+
+# ============================================================
+# مجال المالية (Finance)
+# ============================================================
+finance:
+  battery: "GOE_Finance"
+  indicators:
+    - PAI
+    - CGI
+    - ERI
+    - FQI
+    - MCI
+    - AGI
+
+# ============================================================
+# مجال غير معروف (Unknown)
+# ============================================================
+unknown:
+  battery: "UIVI"
+  indicators:
+    - PAI
+    - CGI
+    - ERI
+    - FQI
+    - MCI
+
+# ============================================================
+# وصف البطاريات (Batteries Description)
+# ============================================================
+batteries:
+  Ten_Gaps:
+    name: "بطارية الفجوات العشر"
+    description: "بطارية عامة تغطي جميع أنواع الفجوات المعرفية"
+    count: 10
+  
+  LVI:
+    name: "بطارية اليقظة القانونية"
+    description: "بطارية متخصصة في تحليل النصوص القانونية"
+    count: 5
+  
+  ENVI:
+    name: "بطارية اليقظة البيئية"
+    description: "بطارية متخصصة في تحليل السياسات البيئية"
+    count: 5
+  
+  TVI:
+    name: "بطارية اليقظة التجارية"
+    description: "بطارية متخصصة في تحليل النصوص التجارية"
+    count: 5
+  
+  AIVI:
+    name: "بطارية اليقظة للذكاء الاصطناعي"
+    description: "بطارية متخصصة في تحليل أنظمة الذكاء الاصطناعي"
+    count: 7
+  
+  DVI:
+    name: "بطارية اليقظة الدبلوماسية"
+    description: "بطارية متخصصة في تحليل الخطاب الدبلوماسي"
+    count: 5
+  
+  MEI:
+    name: "بطارية اليقظة الطبية"
+    description: "بطارية متخصصة في تحليل النصوص الطبية"
+    count: 6
+  
+  GOE_Finance:
+    name: "بطارية اليقظة المالية"
+    description: "بطارية متخصصة في تحليل النصوص المالية"
+    count: 6
+  
+  UIVI:
+    name: "بطارية اليقظة للمجالات غير المعروفة"
+    description: "بطارية عامة للمجالات غير المصنفة"
+    count: 5
+
+# ============================================================
+# تعريف المؤشرات (Indicators Definition)
+# ============================================================
+indicators:
+  PAI:
+    name: "Procedural Absence Index"
+    description: "يقيس مدى غياب الفئات عن المشاركة في العملية"
+    threshold: 0.7
+    measurement_class: "mathematical"
+  
+  CGI:
+    name: "Credibility Gap Index"
+    description: "يقيس الفجوة بين الوعود والتنفيذ"
+    threshold: 0.7
+    measurement_class: "semi_mathematical"
+  
+  ERI:
+    name: "Epistemic Rigidity Index"
+    description: "يقيس درجة الجمود المعرفي في النص"
+    threshold: 0.65
+    measurement_class: "mathematical"
+  
+  FQI:
+    name: "Forbidden Question Index"
+    description: "يقيس مدى وجود أسئلة محرمة في النص"
+    threshold: 0.7
+    measurement_class: "estimative"
+  
+  AGI:
+    name: "Actor Gap Index"
+    description: "يقيس الفجوة بين الفاعلين المشاركين والمستبعدين"
+    threshold: 0.7
+    measurement_class: "semi_mathematical"
+  
+  DIC:
+    name: "Diversity Index"
+    description: "يقيس تنوع وجهات النظر الممثلة"
+    threshold: 0.7
+    measurement_class: "semi_mathematical"
+  
+  MCI:
+    name: "Meta-Cognitive Index"
+    description: "يقيس مدى اعتراف النص بحدود معرفته"
+    threshold: 0.6
+    measurement_class: "semi_mathematical"
+  
+  LRI:
+    name: "Legislative Rigidity Index"
+    description: "يقيس درجة الجمود التشريعي"
+    threshold: 0.6
+    measurement_class: "mathematical"
+  
+  SAI:
+    name: "Semantic Alienation Index"
+    description: "يقيس مدى اغتراب المعنى بين الكاتب والقارئ"
+    threshold: 0.7
+    measurement_class: "semi_mathematical"
+  
+  EAI:
+    name: "Existential Anxiety Index"
+    description: "يقيس درجة القلق الوجودي في النص"
+    threshold: 0.7
+    measurement_class: "semi_mathematical"
+  
+  SVI:
+    name: "Structural Vulnerability Index"
+    description: "يقيس مدى ضعف البنية المؤسسية"
+    threshold: 0.7
+    measurement_class: "semi_mathematical"
+  
+  TMI:
+    name: "Trust Misalignment Index"
+    description: "يقيس مدى انحراف الثقة عن المستوى المطلوب"
+    threshold: 0.7
+    measurement_class: "semi_mathematical"
+  
+  NVEI:
+    name: "Non-Vocal Entity Index"
+    description: "يقيس مدى تمثيل الكيانات غير الناطقة"
+    threshold: 0.7
+    measurement_class: "estimative"
+  
+  ADI:
+    name: "Actor Diversity Index"
+    description: "يقيس تنوع الفاعلين في النظام"
+    threshold: 0.7
+    measurement_class: "semi_mathematical"
