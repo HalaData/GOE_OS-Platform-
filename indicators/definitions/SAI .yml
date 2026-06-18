@@ -1,0 +1,14 @@
+id: "SAI"
+name: "Semantic Alienation Index"
+battery: "Ten_Gaps"
+question: "Do those we serve understand our words?"
+forbidden_question: "Who benefits from keeping language complex?"
+threshold: 0.7
+measurement_class: "semi_mathematical"
+keywords: ["understand", "comprehend", "confusion", "clarify", "jargon"]
+weights:
+  understand: -0.5
+  comprehend: -0.5
+  confusion: 1.0
+  jargon: 1.0
+ecc: 0.7
