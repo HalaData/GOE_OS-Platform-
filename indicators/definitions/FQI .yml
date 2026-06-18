@@ -1,0 +1,8 @@
+id: "FQI"
+name: "Forbidden Question Index"
+battery: "Ten_Gaps"
+question: "What question are we afraid to ask?"
+forbidden_question: "What would happen if we asked it publicly?"
+threshold: 0.7
+measurement_class: "estimative"
+ecc: 0.5
