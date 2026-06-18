@@ -79,4 +79,9 @@ uvicorn main:app --reload
 
 # 3. فتح الواجهة
 http://localhost:8000/docs
-  
+
+# بناء الصورة
+docker build -t goe-os .
+
+# تشغيل الحاوية
+docker run -p 8000:8000 goe-os
