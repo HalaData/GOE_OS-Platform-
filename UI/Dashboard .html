@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GOE OS - لوحة التحكم</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-900 text-gray-100">
+    <div class="container mx-auto p-6">
+        <!-- العنوان -->
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-bold text-blue-400">🧠 GOE OS</h1>
+            <span class="text-sm text-gray-400" id="timestamp"></span>
+        </div>
+
+        <!-- البطاقات -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            <div class="bg-gray-800 p-4 rounded-lg shadow-lg border border-gray-700">
+                <h3 class="text-gray-400 text-sm">درجة اليقظة</h3>
+                <p class="text-2xl font-bold text-green-400" id="vigilance">--</p>
+            </div>
+            <div class="bg-gray-800 p-4 rounded-lg shadow-lg border border-gray-700">
+                <h3 class="text-gray-400 text-sm">المؤشرات</h3>
+                <p class="text-2xl font-bold text-blue-400" id="indicators">--</p>
+            </div>
+            <div class="bg-gray-800 p-4 rounded-lg shadow-lg border border-gray-700">
+                <h3 class="text-gray-400 text-sm">الأسئلة المحرمة</h3>
+                <p class="text-2xl font-bold text-yellow-400" id="forbidden">--</p>
+            </div>
+            <div class="bg-gray-800 p-4 rounded-lg shadow-lg border border-gray-700">
+                <h3 class="text-gray-400 text-sm">المسلمات</h3>
+                <p class="text-2xl font-bold text-red-400" id="dogmas">--</p>
+            </div>
+        </div>
+
+        <!-- الرسم البياني -->
+        <div class="bg-gray-800 p-4 rounded-lg shadow-lg border border-gray-700">
+            <h3 class="text-gray-400 text-sm mb-4">توزيع المؤشرات</h3>
+            <canvas id="chart" height="200"></canvas>
+        </div>
+
+        <!-- حالة النظام -->
+        <div class="mt-6 bg-gray-800 p-4 rounded-lg shadow-lg border border-gray-700">
+            <h3 class="text-gray-400 text-sm mb-2">حالة النظام</h3>
+            <div id="status" class="text-sm text-gray-300">جاري التحميل...</div>
+        </div>
+    </div>
+
+    <script>
+        // تحديث الوقت
+        document.getElementById('timestamp').textContent = new Date().toLocaleString('ar-SA');
+
+        // جلب البيانات من الـ API
+        async function loadData() {
+            try {
+                const response = await fetch('http://localhost:8000/api/v2/govern', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        text: "هذا النص للتحليل التجريبي",
+                        domain: "general",
+                        consent_given: true
+                    })
+                });
+                const data = await response.json();
+
+                document.getElementById('vigilance').textContent = data.vigilance_score || 0;
+                document.getElementById('indicators').textContent = Object.keys(data.indicators || {}).length;
+                document.getElementById('forbidden').textContent = (data.forbidden_questions || []).length;
+                document.getElementById('dogmas').textContent = (data.dogmas || []).length;
+
+                // رسم بياني
+                const ctx = document.getElementById('chart').getContext('2d');
+                const labels = Object.keys(data.indicators || {});
+                const values = Object.values(data.indicators || {}).map(v => v.score || 0);
+
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'قيم المؤشرات',
+                            data: values,
+                            backgroundColor: 'rgba(59, 130, 246, 0.6)',
+                            borderColor: 'rgba(59, 130, 246, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: { labels: { color: '#e5e7eb' } }
+                        },
+                        scales: {
+                            y: { beginAtZero: true, max: 1, ticks: { color: '#9ca3af' } },
+                            x: { ticks: { color: '#9ca3af' } }
+                        }
+                    }
+                });
+
+                document.getElementById('status').textContent = '✅ النظام يعمل بشكل طبيعي';
+            } catch (error) {
+                document.getElementById('status').textContent = '❌ لا يمكن الاتصال بالخادم: ' + error.message;
+            }
+        }
+
+        loadData();
+        setInterval(loadData, 30000);
+    </script>
+</body>
+</html>
