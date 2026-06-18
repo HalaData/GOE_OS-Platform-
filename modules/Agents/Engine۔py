@@ -1,0 +1,100 @@
+"""
+GOE OS - Agents Engine
+الوكلاء العلميون: وكلاء متخصصون في مختلف المجالات
+"""
+
+import logging
+import random
+from typing import Dict, List, Any, Optional
+from datetime import datetime
+import hashlib
+
+logger = logging.getLogger("GOE_OS.Agents")
+
+class AgentsEngine:
+    """
+    محرك الوكلاء - إدارة وكلاء علميين متخصصين
+    """
+    
+    AGENTS = {
+        "physics": {"name": "وكيل الفيزياء", "expertise": ["quantum", "relativity", "gravity"]},
+        "chemistry": {"name": "وكيل الكيمياء", "expertise": ["molecule", "reaction", "catalyst"]},
+        "biology": {"name": "وكيل الأحياء", "expertise": ["cell", "gene", "protein", "evolution"]},
+        "mathematics": {"name": "وكيل الرياضيات", "expertise": ["equation", "theorem", "proof"]},
+        "computer_science": {"name": "وكيل علوم الحاسوب", "expertise": ["algorithm", "AI", "data"]},
+        "economics": {"name": "وكيل الاقتصاد", "expertise": ["market", "growth", "policy"]},
+        "sociology": {"name": "وكيل علم الاجتماع", "expertise": ["society", "culture", "institution"]},
+        "medicine": {"name": "وكيل الطب", "expertise": ["disease", "treatment", "clinical"]}
+    }
+    
+    def __init__(self):
+        self.agents = self.AGENTS
+        self.agent_history = []
+        logger.info(f"✅ Agents Engine initialized with {len(self.agents)} agents")
+    
+    def analyze_with_agents(self, data: Dict) -> Dict:
+        """تحليل نص بجميع الوكلاء"""
+        text = data.get("text", "")
+        if not text:
+            return {"status": "error", "message": "لا يوجد نص للتحليل"}
+        
+        results = {}
+        for agent_id, agent in self.agents.items():
+            results[agent_id] = self._analyze_with_agent(text, agent)
+        
+        return {
+            "status": "success",
+            "text": text[:200],
+            "agent_results": results,
+            "summary": self._generate_summary(results),
+            "timestamp": datetime.now().isoformat()
+        }
+    
+    def _analyze_with_agent(self, text: str, agent: Dict) -> Dict:
+        """تحليل نص بوكيل معين"""
+        return {
+            "agent": agent["name"],
+            "expertise": agent["expertise"],
+            "concepts_found": [e for e in agent["expertise"] if e in text.lower()],
+            "certainty_level": round(random.uniform(0.4, 0.9), 2),
+            "recommendation": f"توصية من {agent['name']}: تحليل النص من منظور {agent['expertise'][0]}"
+        }
+    
+    def _generate_summary(self, results: Dict) -> str:
+        """توليد ملخص من نتائج الوكلاء"""
+        active_agents = [r["agent"] for r in results.values() if r["concepts_found"]]
+        if active_agents:
+            return f"تم كشف مفاهيم من {len(active_agents)} وكيل: {', '.join(active_agents[:3])}"
+        return "لم يتم كشف مفاهيم متخصصة في النص"
+    
+    def list_agents(self) -> List[Dict]:
+        """جميع الوكلاء المتاحين"""
+        return [{"id": aid, **agent} for aid, agent in self.agents.items()]
+    
+    def orchestrate_collaboration(self, data: Dict) -> Dict:
+        """تعاون بين وكيلين"""
+        agent_a_id = data.get("agent_a", "")
+        agent_b_id = data.get("agent_b", "")
+        topic = data.get("topic", "")
+        
+        agent_a = self.agents.get(agent_a_id)
+        agent_b = self.agents.get(agent_b_id)
+        
+        if not agent_a or not agent_b:
+            return {"status": "error", "message": "وكيل غير موجود"}
+        
+        collaboration = {
+            "agents": [agent_a["name"], agent_b["name"]],
+            "topic": topic,
+            "shared_keywords": list(set(agent_a["expertise"]) & set(agent_b["expertise"])),
+            "synergy_score": round(random.uniform(0.5, 0.95), 2),
+            "recommended_approach": f"الجمع بين خبرة {agent_a['name']} و {agent_b['name']} في {topic}"
+        }
+        
+        self.agent_history.append(collaboration)
+        
+        return {
+            "status": "success",
+            "collaboration": collaboration,
+            "timestamp": datetime.now().isoformat()
+        }
