@@ -1,0 +1,10 @@
+id: "LRI"
+name: "Legislative Rigidity Index"
+battery: "LVI"
+question: "How many times has this law been amended?"
+forbidden_question: "What assumption in this law is now obsolete?"
+threshold: 0.6
+measurement_class: "mathematical"
+formula: "LRI"
+keywords: ["amend", "review", "repeal", "modify"]
+ecc: 0.95
