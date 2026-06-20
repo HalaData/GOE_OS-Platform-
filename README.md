@@ -277,7 +277,7 @@ This project is licensed under the MIT License – see the LICENSE file for deta
 📞 Contact
 
 · GitHub: github.com/yourusername/GOE_OS
-· Email: your-email@example.com
+· Email: info.hala@yandex.com
 
 ---
 
