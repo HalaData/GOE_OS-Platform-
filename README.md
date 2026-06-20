@@ -281,12 +281,15 @@ This project is licensed under the MIT License – see the LICENSE file for deta
 
 ---
 
-🙏 Acknowledgments
+## 💰 Support the Project
 
-· KAUST – For supporting innovation and entrepreneurship
-· Open Source Community – For the tools and libraries that made this possible
-· Saudi Vision 2030 – For creating an environment that fosters technological advancement
+If you find GOE OS useful, consider supporting its development:
 
+- **GitHub Sponsors:** [Sponsor on GitHub](https://github.com/sponsors/yourusername)
+- **Buy Me a Coffee:** [buymeacoffee.com/goe-os](https://buymeacoffee.com/goe-os)
+- **Custom Donation:** [goe-os.com/donate](https://goe-os.com/donate)
+
+Your support helps us keep the platform open-source and continuously improving.
 ---
 
 ✨ GOE OS – Open. Transparent. Accessible to All.
