@@ -68,36 +68,102 @@
 
 ---
 
-## 📂 Project Structure
-
 ```
+📂 Project Structure – GOE OS
 
+```text
 GOE_OS/
-├── core/                 # Engine, Loader, Utils (Lazy Loading)
-├── modules/              # 22 integrated modules
-│   ├── governance/       # Knowledge governance & indicators
-│   ├── analysis/         # Deep text & dogma analysis
-│   ├── generation/       # Code, content, strategy generation
-│   ├── law/              # Smart legal analysis & legislation
-│   ├── medicine/         # Diagnosis & regenerative medicine
-│   ├── agriculture/      # Crop calendars for any crop/country
-│   ├── physics/          # Physics dogma & philosophy analysis
-│   ├── music/            # Music generation, analysis, therapy
-│   ├── sports/           # Sports analysis & refereeing
-│   ├── economics/        # Economic models & startup risk
-│   ├── education/        # Adaptive learning & IEP
-│   ├── foresight/        # Unlimited scenario generation
-│   ├── cybernetic_governance/ # 4D Remediation loop
-│   └── ... (22 total)
-├── ui/
-│   ├── app.py            # Streamlit interface
-│   ├── dashboard.html    # Quick HTML dashboard
-│   └── web/              # React professional UI
-├── indicators/definitions/ # 9 core indicators (YAML)
-├── config/               # Decision tree & settings
-└── tests/                # Unit tests
-
+│
+├── main.py                         # Entry point (60+ API endpoints)
+├── requirements.txt                # Python dependencies
+├── Dockerfile                      # Optimized Docker image
+├── docker-compose.yml              # Multi-service orchestration
+├── .gitignore                      # Git exclusions
+├── LICENSE                         # MIT License
+├── README.md                       # Full documentation
+│
+├── core/                           # Core engine (lazy loading, caching)
+│   ├── __init__.py
+│   ├── engine.py                   # Singleton engine
+│   ├── loader.py                   # Lazy component loader
+│   └── utils.py                    # Unified utilities
+│
+├── modules/                        # 22 integrated modules
+│   ├── governance/                 # Knowledge governance (indicators, diagnosis)
+│   ├── analysis/                   # Deep text & dogma analysis
+│   ├── generation/                 # Code, content, strategy generation
+│   ├── i18n/                       # Translation & 20+ languages
+│   ├── law/                        # Smart legal analysis
+│   ├── medicine/                   # Medical diagnosis & regenerative medicine
+│   ├── agriculture/                # Crop calendars (any crop, any country)
+│   ├── physics/                    # Physics dogma & philosophy
+│   ├── music/                      # Music generation, analysis, therapy
+│   ├── sports/                     # Sports analysis & refereeing
+│   ├── economics/                  # Economic models & startup risk
+│   ├── education/                  # Adaptive learning & IEP
+│   ├── foresight/                  # Unlimited scenario generation
+│   ├── strategy/                   # Strategic planning & vision
+│   ├── integration/                # ERP, DB, Cloud adapters
+│   ├── media/                      # Video, audio transcription & translation
+│   ├── accessibility/              # Deaf, mute, blind support
+│   ├── kids/                       # Educational games & stories
+│   ├── empowerment/                # App generator & interactive wizard
+│   ├── agents/                     # 15+ scientific agents
+│   ├── cybernetic_governance/      # 4D Remediation loop
+│   └── risk/                       # Startup risk analysis (95%+ accuracy)
+│
+├── ui/                             # User interfaces
+│   ├── app.py                      # Streamlit dashboard
+│   ├── dashboard.html              # Quick HTML dashboard
+│   └── web/                        # React professional UI
+│       ├── package.json
+│       ├── vite.config.ts
+│       ├── tailwind.config.js
+│       ├── tsconfig.json
+│       ├── index.html
+│       ├── .env.example
+│       └── src/
+│           ├── main.tsx
+│           ├── App.tsx
+│           ├── api/
+│           ├── components/
+│           ├── pages/
+│           ├── hooks/
+│           ├── types/
+│           └── utils/
+│
+├── indicators/                     # Core indicators (extensible)
+│   └── definitions/
+│       ├── PAI.yaml
+│       ├── CGI.yaml
+│       ├── ERI.yaml
+│       ├── FQI.yaml
+│       ├── AGI.yaml
+│       ├── DIC.yaml
+│       ├── MCI.yaml
+│       ├── LRI.yaml
+│       └── SAI.yaml
+│
+├── config/                         # Configuration
+│   └── decision_tree.yaml
+│
+└── tests/                          # Unit tests
+    └── test_core.py
 ```
+
+---
+
+📌 Structure Overview
+
+Component Purpose
+core/ Engine, lazy loader, and utilities – the backbone of the platform
+modules/ 22 independent modules for different knowledge domains
+ui/ Three interfaces: React (professional), Streamlit (lightweight), HTML (quick)
+indicators/ 9 core YAML-defined indicators (extensible via API)
+config/ Decision tree for domain classification
+tests/ Unit tests for core components
+
+---
 
 ---
 
