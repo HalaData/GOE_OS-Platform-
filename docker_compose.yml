@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: goe
+      POSTGRES_PASSWORD: goe
+      POSTGRES_DB: goe_os
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://goe:goe@postgres:5432/goe_os
+      - REDIS_URL=redis://redis:6379/0
+      - SECRET_KEY=${SECRET_KEY:-your-super-secret-key}
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ./app:/app
+      - ./core:/core
+      - ./kg_core:/kg_core
+      - ./execution:/execution
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
