@@ -1,277 +1,3 @@
-
-```markdown
-# 🧠 GOE OS
-## نظام الحوكمة المعرفية السيبرنطيقية
-**أول منصة مفتوحة المصدر في العالم للحوكمة المعرفية**
-
-[![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://python.org)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.115.0-green)](https://fastapi.tiangolo.com)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](https://github.com/HalaData/GOE_OS-Platform-/pulls)
-[![Open Source](https://img.shields.io/badge/Open%20Source-Yes-green)](https://opensource.org)
-[![Arabic Support](https://img.shields.io/badge/Arabic-Support-blue)](https://goe-os.com)
-[![Security](https://img.shields.io/badge/Security-JWT%2BRBAC-red)](https://jwt.io)
-[![Rate Limiting](https://img.shields.io/badge/Rate%20Limiting-SlowAPI-orange)](https://github.com/laurentS/slowapi)
-
----
-
-## 📖 نظرة عامة
-
-**GOE OS** هي منصة سيبرنطيقية ثورية تعمل كـ **"نظام تشغيل للمعرفة الإنسانية"**. تجمع بين:
-- **تحليل النصوص العميق** (باستخدام 9 مؤشرات ذكاء اصطناعي).
-- **التنبؤ غير المحدود بالسيناريوهات** (محاكاة مونت كارلو).
-- **توليد المحتوى الإبداعي** (أكواد، استراتيجيات، كتب، نماذج أعمال).
-- **الحوكمة المعرفية** (دورة 4D: اكتشاف، إصلاح، استشراف، تشخيص، تطعيم).
-
-**مصممة من أجل:** الحكومات، المؤسسات، الباحثين، والمطورين الذين يحتاجون إلى إدارة وتحليل وتوليد المعرفة على نطاق واسع.
-
----
-
-## 🚀 الميزات الرئيسية
-
-| **الميزة** | **الوصف** |
-|------------|------------|
-| **تحليل النصوص العميق** | 9 مؤشرات مدعومة بالذكاء الاصطناعي (PAI، CGI، ERI، FQI، AGI، DIC، MCI، LRI، SAI) لكشف الافتراضات والفجوات والتحيزات |
-| **الدورة الرباعية (4D)** | اكتشف → أصلح (5 حلول) → استشرف (سيناريوهات غير محدودة) → شخّص (السبب الجذري) → طعّم (منع التكرار) |
-| **التنبؤ غير المحدود** | محاكاة مونت كارلو بـ 8 أبعاد وتوليد أنماط لا نهائية |
-| **التوليد الإبداعي** | أكواد، استراتيجيات، نماذج أعمال، كتب، ومحتوى تعليمي |
-| **22 مجالاً متكاملاً** | القانون، الطب، الزراعة، الفيزياء، الموسيقى، الرياضة، الاقتصاد، التعليم، والمزيد |
-| **دعم كامل للغة العربية** | تشكيل، تحويل النص إلى كلام، واجهات RTL، وأكثر من 20 لغة إضافية |
-| **الإتاحة الشاملة** | دعم الصم، البكم، والمكفوفين |
-| **منصة الأطفال** | ألعاب تعليمية، قصص تفاعلية، وشخصيات مرافقة |
-| **تمكين المطورين** | مولد تطبيقات، معالج تفاعلي، نظام تلعيب، وسوق إضافات |
-
----
-
-## 🏆 ما الذي يجعل GOE OS فريدة؟
-
-**على عكس المنافسين الذين يكتشفون المشاكل فقط، تقدم GOE OS حلاً سيبرنطيقياً متكاملاً:**
-
-1. **اكتشف** – تحديد نقاط الضعف والفجوات المعرفية.
-2. **أصلح** – توليد 5 حلول مع التحقق الرياضي (TGL).
-3. **استشرف** – محاكاة سيناريوهات مستقبلية غير محدودة (مونت كارلو).
-4. **شخّص** – كشف السبب الجذري باستخدام الأسئلة المحرمة وتحليل SAI.
-5. **طعم** – إنشاء بروتوكولات مناعية ومؤشرات جديدة لمنع التكرار.
-
-**هذه الدورة السيبرنطيقية المكونة من 5 خطوات لا تضاهيها أي منصة في العالم.**
-
----
-
-## 🔐 الأمان
-
-تم تصميم GOE OS بأمان على مستوى المؤسسات:
-
-- **JWT Authentication** + **Refresh Tokens**.
-- **RBAC (Role-Based Access Control)**: 4 مستويات صلاحيات (viewer, analyst, admin, super_admin).
-- **Rate Limiting** (SlowAPI) لحماية النظام من الهجمات.
-- **Audit Logs** لتسجيل جميع العمليات.
-- **Pydantic V2 Models** للتحقق الصارم من المدخلات.
-- **WebSocket Secure** للتعاون المباشر.
-
----
-
-## 🛠️ التقنيات المستخدمة
-
-| **الطبقة** | **التقنية** |
-|------------|-------------|
-| **الخادم الخلفي** | Python 3.10+، FastAPI، Uvicorn |
-| **الواجهة الأمامية** | React 18+، TypeScript، Tailwind CSS |
-| **قاعدة البيانات** | PostgreSQL (للإنتاج)، SQLite (للتطوير) |
-| **التخزين المؤقت** | Redis |
-| **الحاويات** | Docker، Docker Compose، Kubernetes |
-| **المراقبة** | Prometheus، Grafana |
-| **واجهات API** | REST (60+ نقطة نهاية)، GraphQL، WebSocket |
-
----
-═══════════════════════════════════════════════════════════════════════════════
-                      🧠 GOE OS - PROJECT STRUCTURE
-                      نظام GOE OS - هيكل المشروع
-═══════════════════════════════════════════════════════════════════════════════
-
-GOE_OS/
-│
-├── 📁 app/                                    # Application Entry Point
-│   ├── __init__.py                            # Package initializer
-│   └── main.py                                # Main server (60+ API endpoints)
-│
-├── 📁 core/                                   # Core Systems (الأنظمة الأساسية)
-│   ├── __init__.py
-│   ├── auto_loader.py                         # Auto-discovery of components
-│   ├── reputation.py                          # Reputation & impact system
-│   ├── challenges.py                          # Daily challenges system
-│   ├── templates.py                           # Ready-to-use templates
-│   ├── mentors.py                             # Governance mentor system
-│   ├── gaps.py                                # Transparent gap layer
-│   ├── community.py                           # GOE Community
-│   ├── integration.py                         # Webhooks & API Keys
-│   └── schemaless_data.py                     # Unlimited data layer
-│
-├── 📁 kg_core/                                # Knowledge Governance Core (جوهر الحوكمة)
-│   ├── __init__.py
-│   ├── indicators.py                          # 9 Core Indicators
-│   └── 📁 layers/
-│       ├── __init__.py
-│       └── diagnostics.py                     # Diagnostic layer
-│
-├── 📁 execution/                              # Execution Layer (طبقة التنفيذ)
-│   ├── __init__.py
-│   ├── 📁 historical/
-│   │   ├── __init__.py
-│   │   └── ingestor.py                        # Historical data import
-│   └── 📁 backtesting/
-│       ├── __init__.py
-│       └── engine.py                          # Backtesting engine
-│
-├── 📁 shared/                                 # Shared Libraries (المكتبات المشتركة)
-│   ├── __init__.py
-│   └── 📁 models/
-│       ├── __init__.py
-│       └── Indicator.py                       # Unified indicator model
-│
-├── 📁 frontend/                               # Frontend (React/Next.js) - Optional
-│   ├── package.json
-│   └── 📁 src/
-│       ├── App.tsx
-│       └── ...
-│
-├── 📁 mobile/                                 # Mobile App (React Native) - Optional
-│   ├── package.json
-│   └── 📁 src/
-│       ├── App.tsx
-│       └── ...
-│
-├── 📄 requirements.txt                        # Python dependencies
-├── 📄 .env.example                            # Environment variables example
-├── 📄 docker-compose.yml                      # Docker orchestration
-├── 📄 Dockerfile                              # Docker image
-├── 📄 LICENSE                                 # MIT License
-├── 📄 README.md                               # Documentation (this file)
-└── 📄 .gitignore                              # Git exclusions
-
-```
-
----
-
-## 🚀 التشغيل السريع
-
-### الخيار 1: التشغيل المحلي
-```bash
-# 1. نسخ المستودع
-git clone https://github.com/HalaData/GOE_OS-Platform-.git
-cd GOE_OS-Platform-
-
-# 2. إنشاء البيئة الافتراضية
-python -m venv venv
-source venv/bin/activate  # أو venv\Scripts\activate في Windows
-
-# 3. تثبيت المتطلبات
-pip install -r requirements.txt
-
-# 4. نسخ ملف المتغيرات البيئية
-cp .env.example .env
-
-# 5. تشغيل الخادم
-python -m app.main
-
-# 6. فتح التوثيق
-# http://localhost:8000/docs
-```
-
-الخيار 2: التشغيل باستخدام Docker
-
-```bash
-# 1. تشغيل جميع الخدمات
-docker-compose up -d
-
-# 2. إيقاف الخدمات
-docker-compose down
-```
-
----
-
-📚 نقاط النهاية API
-
-المجال نقطة النهاية الوصف
-المصادقة /api/v2/auth/register تسجيل مستخدم جديد
- /api/v2/auth/login تسجيل الدخول والحصول على توكن
- /api/v2/auth/refresh تحديث التوكن
- /api/v2/auth/logout تسجيل الخروج
-الحوكمة /api/v2/govern تشخيص النصوص (محمي)
- /api/v2/govern/indicators الحصول على المؤشرات التسعة
-التاريخ /api/v2/historical/ingest استيراد البيانات التاريخية
-الاختبار الخلفي /api/v2/backtest/run تشغيل الاختبار الخلفي
-السمعة /api/v2/reputation/user إنشاء مستخدم
- /api/v2/reputation/star إضافة نجمة
- /api/v2/reputation/profile/{user_id} ملف المستخدم
-التحديات /api/v2/challenges/{user_id} التحديات اليومية
-القوالب /api/v2/templates القوالب الجاهزة
-المجتمع /api/v2/community/post إنشاء منشور
- /api/v2/community/comment إضافة تعليق
-الإدارة /api/v2/admin/users قائمة المستخدمين
- /api/v2/admin/audit-logs سجلات التدقيق
-
-التوثيق الكامل متاح عبر /docs عند تشغيل الخادم.
-
----
-
-🌍 حالات الاستخدام
-
-القطاع التطبيق
-الحكومة تحليل السياسات، كشف الفجوات التشريعية، مراقبة الثقة العامة
-المالية تقييم المخاطر، الامتثال، التخطيط الاستراتيجي
-الرعاية الصحية دعم التشخيص، الطب التجديدي، تحليل التغذية
-الزراعة تخطيط المحاصيل، تحسين الري، التنبؤ بالإنتاج
-التعليم التعلم التكيفي، توليد خطط تعليمية فردية، التلعيب
-البحث العلمي اكتشاف المسلمات العلمية، توليد فرضيات متعددة التخصصات
-الشركات الناشئة كشف فجوات السوق، توليد نماذج أعمال، تحليل المخاطر
-الفنون والموسيقى توليد موسيقى، تحليل عاطفي، علاج فني
-الإتاحة دعم الصم والبكم والمكفوفين
-
----
-
-🤝 المساهمة
-
-نرحب بمساهماتكم!
-
-1. انسخ المستودع (Fork).
-2. أنشئ فرعاً للميزة: git checkout -b feature/amazing-feature
-3. أضف تغييراتك: git commit -m 'Add some amazing feature'
-4. ارفع الفرع: git push origin feature/amazing-feature
-5. افتح طلب سحب (Pull Request).
-
----
-
-📝 الرخصة
-
-هذا المشروع مرخص تحت رخصة MIT – انظر ملف LICENSE للتفاصيل.
-
----
-
-📞 التواصل
-
-· GitHub: github.com/HalaData/GOE_OS-Platform-
-· البريد الإلكتروني: info.hala@yandex.com
-
----
-
-💰 دعم المشروع
-
-إذا وجدت GOE OS مفيدة، يمكنك دعم تطويرها:
-
-· GitHub Sponsors: Sponsor on GitHub
-· Buy Me a Coffee: buymeacoffee.com/goe-os
-
----
-
-✨ GOE OS – مفتوح. شفاف. متاح للجميع.
-🌍 بناء المعيار العالمي للحوكمة المعرفية.
-
-```
-
----
-
-
-```markdown
 # 🧠 GOE OS
 ## Governance of Ontology & Epistemology Operating System
 **The World's First Open-Source Cybernetic Knowledge Governance Platform**
@@ -352,6 +78,109 @@ GOE OS is built with enterprise-grade security:
 
 ---
 
+## 📂 Project Structure
+
+```text
+GOE_OS/
+├── app/                           # Application Entry Point
+│   ├── __init__.py
+│   └── main.py                    # Main server (60+ API endpoints)
+│
+├── core/                          # Core Systems
+│   ├── __init__.py
+│   ├── auto_loader.py             # Auto-discovery of components
+│   ├── reputation.py              # Reputation & impact system
+│   ├── challenges.py              # Daily challenges system
+│   ├── templates.py               # Ready-to-use templates
+│   ├── mentors.py                 # Governance mentor system
+│   ├── gaps.py                    # Transparent gap layer
+│   ├── community.py               # GOE Community
+│   ├── integration.py             # Webhooks & API Keys
+│   └── schemaless_data.py         # Unlimited data layer
+│
+├── kg_core/                       # Knowledge Governance Core
+│   ├── __init__.py
+│   ├── indicators.py              # 9 Core Indicators
+│   └── layers/
+│       ├── __init__.py
+│       └── diagnostics.py         # Diagnostic layer
+│
+├── execution/                     # Execution Layer
+│   ├── __init__.py
+│   ├── historical/
+│   │   ├── __init__.py
+│   │   └── ingestor.py            # Historical data import
+│   └── backtesting/
+│       ├── __init__.py
+│       └── engine.py              # Backtesting engine
+│
+├── shared/                        # Shared Libraries
+│   ├── __init__.py
+│   └── models/
+│       ├── __init__.py
+│       └── Indicator.py           # Unified indicator model
+│
+├── frontend/                      # Frontend (React/Next.js) - Optional
+│   ├── package.json
+│   └── src/
+│       ├── App.tsx
+│       └── ...
+│
+├── mobile/                        # Mobile App (React Native) - Optional
+│   ├── package.json
+│   └── src/
+│       ├── App.tsx
+│       └── ...
+│
+├── requirements.txt               # Python dependencies
+├── .env.example                   # Environment variables example
+├── docker-compose.yml             # Docker orchestration
+├── Dockerfile                     # Docker image
+├── LICENSE                        # MIT License
+├── README.md                      # Documentation (this file)
+└── .gitignore                     # Git exclusions
+```
+
+---
+
+### 📌 Key Components Description
+
+| **Component** | **Description** |
+|---------------|-----------------|
+| **app/** | Entry point, contains `main.py` which runs the server. |
+| **core/** | Core systems: reputation, challenges, templates, mentors, community, integration, schemaless data. |
+| **kg_core/** | Knowledge governance core: 9 indicators and diagnostic layer. |
+| **execution/** | Execution layer: historical data import and backtesting. |
+| **shared/** | Shared models and utilities across components. |
+| **frontend/** | React/Next.js frontend - Optional. |
+| **mobile/** | React Native mobile app - Optional. |
+
+---
+
+### 🧠 9 Knowledge Governance Indicators
+
+| **Indicator** | **Name (English)** | **Name (Arabic)** |
+|---------------|-------------------|-------------------|
+| **PAI** | Procedural Absence Index | الغياب الإجرائي |
+| **CGI** | Credibility Gap Index | فجوة المصداقية |
+| **ERI** | Epistemic Rigidity Index | الجمود المعرفي |
+| **FQI** | Forbidden Questions Index | الأسئلة المحرمة |
+| **AGI** | Actor Gap Index | فجوة الفاعلين |
+| **DIC** | Diversity Index | التنوع المعرفي |
+| **MCI** | Modesty Index | التواضع المعرفي |
+| **LRI** | Legislative Rigidity Index | الجمود التشريعي |
+| **SAI** | Semantic Alienation Index | الاغتراب الدلالي |
+
+---
+
+### 🔄 4D Cybernetic Governance Cycle
+
+```text
+  🔍 1. DETECT   → Identify vulnerabilities and knowledge gaps
+  🛠️ 2. FIX      → Generate 5 solutions with TGL verification
+  🔮 3. FORECAST → Simulate unlimited future scenarios (Monte Carlo)
+  🔬 4. DIAGNOSE → Uncover root causes using forbidden questions + SAI
+  💉 5. IMMUNIZE → Create immune protocols to prevent recurrence
 ```
 
 ---
@@ -381,8 +210,7 @@ python -m app.main
 # http://localhost:8000/docs
 ```
 
-Option 2: Docker
-
+### Option 2: Docker
 ```bash
 # 1. Start all services
 docker-compose up -d
@@ -393,81 +221,383 @@ docker-compose down
 
 ---
 
-📚 API Endpoints
+## 📚 API Endpoints
 
-Domain Endpoint Description
-Auth /api/v2/auth/register Register new user
- /api/v2/auth/login Login & get tokens
- /api/v2/auth/refresh Refresh token
- /api/v2/auth/logout Logout
-Governance /api/v2/govern Text diagnosis (protected)
- /api/v2/govern/indicators Get 9 indicators
-Historical /api/v2/historical/ingest Import historical data
-Backtesting /api/v2/backtest/run Run backtesting
-Reputation /api/v2/reputation/user Create user
- /api/v2/reputation/star Add star
- /api/v2/reputation/profile/{user_id} User profile
-Challenges /api/v2/challenges/{user_id} Daily challenges
-Templates /api/v2/templates Ready-to-use templates
-Community /api/v2/community/post Create post
- /api/v2/community/comment Add comment
-Admin /api/v2/admin/users User list
- /api/v2/admin/audit-logs Audit logs
+| **Domain** | **Endpoint** | **Description** |
+|------------|--------------|------------------|
+| **Auth** | `/api/v2/auth/register` | Register new user |
+| | `/api/v2/auth/login` | Login & get tokens |
+| | `/api/v2/auth/refresh` | Refresh token |
+| | `/api/v2/auth/logout` | Logout |
+| **Governance** | `/api/v2/govern` | Text diagnosis (protected) |
+| | `/api/v2/govern/indicators` | Get 9 indicators |
+| **Historical** | `/api/v2/historical/ingest` | Import historical data |
+| **Backtesting** | `/api/v2/backtest/run` | Run backtesting |
+| **Reputation** | `/api/v2/reputation/user` | Create user |
+| | `/api/v2/reputation/star` | Add star |
+| | `/api/v2/reputation/profile/{user_id}` | User profile |
+| **Challenges** | `/api/v2/challenges/{user_id}` | Daily challenges |
+| **Templates** | `/api/v2/templates` | Ready-to-use templates |
+| **Community** | `/api/v2/community/post` | Create post |
+| | `/api/v2/community/comment` | Add comment |
+| **Admin** | `/api/v2/admin/users` | User list |
+| | `/api/v2/admin/audit-logs` | Audit logs |
 
-Full documentation is available at /docs when the server is running.
-
----
-
-🌍 Use Cases
-
-Sector Application
-Government Policy analysis, legislative gap detection, public trust monitoring
-Finance Risk assessment, compliance, strategic planning
-Healthcare Diagnosis support, regenerative medicine, nutrition analysis
-Agriculture Crop planning, irrigation optimization, yield prediction
-Education Adaptive learning, IEP generation, gamification
-Research Scientific dogma discovery, interdisciplinary hypothesis generation
-Startups Market gap detection, business model generation, risk analysis
-Arts & Music Music generation, emotional analysis, therapy
-Accessibility Deaf/mute/blind support, assistive technologies
+> Full documentation is available at `/docs` when the server is running.
 
 ---
 
-🤝 Contributing
+## 🌍 Use Cases
+
+| **Sector** | **Application** |
+|------------|-----------------|
+| **Government** | Policy analysis, legislative gap detection, public trust monitoring |
+| **Finance** | Risk assessment, compliance, strategic planning |
+| **Healthcare** | Diagnosis support, regenerative medicine, nutrition analysis |
+| **Agriculture** | Crop planning, irrigation optimization, yield prediction |
+| **Education** | Adaptive learning, IEP generation, gamification |
+| **Research** | Scientific dogma discovery, interdisciplinary hypothesis generation |
+| **Startups** | Market gap detection, business model generation, risk analysis |
+| **Arts & Music** | Music generation, emotional analysis, therapy |
+| **Accessibility** | Deaf/mute/blind support, assistive technologies |
+
+---
+
+## 🤝 Contributing
 
 We welcome contributions!
 
 1. Fork the repository
-2. Create a feature branch: git checkout -b feature/amazing-feature
-3. Commit your changes: git commit -m 'Add some amazing feature'
-4. Push to the branch: git push origin feature/amazing-feature
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add some amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
 5. Open a Pull Request
 
 ---
 
-📝 License
+## 📝 License
 
 This project is licensed under the MIT License – see the LICENSE file for details.
 
 ---
 
-📞 Contact
+## 📞 Contact
 
-· GitHub: github.com/HalaData/GOE_OS-Platform-
-· Email: info.hala@yandex.com
-
----
-
-💰 Support the Project
-
-· GitHub Sponsors: Sponsor on GitHub
-· Buy Me a Coffee: buymeacoffee.com/goe-os
+- **GitHub:** [github.com/HalaData/GOE_OS-Platform-](https://github.com/HalaData/GOE_OS-Platform-)
+- **Email:** info.hala@yandex.com
 
 ---
 
-✨ GOE OS – Open. Transparent. Accessible to All.
-🌍 Building the Global Standard for Knowledge Governance.
+## 💰 Support the Project
 
+- **GitHub Sponsors:** [Sponsor on GitHub](https://github.com/sponsors/yourusername)
+- **Buy Me a Coffee:** [buymeacoffee.com/goe-os](https://buymeacoffee.com/goe-os)
+
+---
+
+✨ **GOE OS – Open. Transparent. Accessible to All.**
+🌍 **Building the Global Standard for Knowledge Governance.**
+
+# 🧠 GOE OS
+## نظام الحوكمة المعرفية السيبرنطيقية
+**أول منصة مفتوحة المصدر في العالم للحوكمة المعرفية**
+
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://python.org)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115.0-green)](https://fastapi.tiangolo.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](https://github.com/HalaData/GOE_OS-Platform-/pulls)
+[![Open Source](https://img.shields.io/badge/Open%20Source-Yes-green)](https://opensource.org)
+[![Arabic Support](https://img.shields.io/badge/Arabic-Support-blue)](https://goe-os.com)
+[![Security](https://img.shields.io/badge/Security-JWT%2BRBAC-red)](https://jwt.io)
+[![Rate Limiting](https://img.shields.io/badge/Rate%20Limiting-SlowAPI-orange)](https://github.com/laurentS/slowapi)
+
+---
+
+## 📖 نظرة عامة
+
+**GOE OS** هي منصة سيبرنطيقية ثورية تعمل كـ **"نظام تشغيل للمعرفة الإنسانية"**. تجمع بين تحليل النصوص العميق، والتنبؤ غير المحدود بالسيناريوهات، وتوليد المحتوى الإبداعي، والحوكمة المعرفية عبر 22 مجالاً، كل ذلك في نظام بيئي مفتوح المصدر.
+
+> **مصممة من أجل:** الحكومات، المؤسسات، الباحثين، والمطورين الذين يحتاجون إلى إدارة وتحليل وتوليد المعرفة على نطاق واسع.
+
+---
+
+## 🚀 الميزات الرئيسية
+
+| **الميزة** | **الوصف** |
+|------------|------------|
+| **تحليل النصوص العميق** | 9 مؤشرات مدعومة بالذكاء الاصطناعي (PAI، CGI، ERI، FQI، AGI، DIC، MCI، LRI، SAI) لكشف الافتراضات والفجوات والتحيزات |
+| **الدورة الرباعية (4D)** | اكتشف → أصلح (5 حلول) → استشرف (سيناريوهات غير محدودة) → شخّص (السبب الجذري) → طعّم (منع التكرار) |
+| **التنبؤ غير المحدود** | محاكاة مونت كارلو بـ 8 أبعاد وتوليد أنماط لا نهائية |
+| **التوليد الإبداعي** | أكواد، استراتيجيات، نماذج أعمال، كتب، ومحتوى تعليمي |
+| **22 مجالاً متكاملاً** | القانون، الطب، الزراعة، الفيزياء، الموسيقى، الرياضة، الاقتصاد، التعليم، والمزيد |
+| **دعم كامل للغة العربية** | تشكيل، تحويل النص إلى كلام، واجهات RTL، وأكثر من 20 لغة إضافية |
+| **الإتاحة الشاملة** | دعم الصم، البكم، والمكفوفين |
+| **منصة الأطفال** | ألعاب تعليمية، قصص تفاعلية، وشخصيات مرافقة |
+| **تمكين المطورين** | مولد تطبيقات، معالج تفاعلي، نظام تلعيب، وسوق إضافات |
+
+---
+
+## 🏆 ما الذي يجعل GOE OS فريدة؟
+
+**على عكس المنافسين الذين يكتشفون المشاكل فقط، تقدم GOE OS حلاً سيبرنطيقياً متكاملاً:**
+
+1. **اكتشف** – تحديد نقاط الضعف والفجوات المعرفية
+2. **أصلح** – توليد 5 حلول مع التحقق الرياضي (TGL)
+3. **استشرف** – محاكاة سيناريوهات مستقبلية غير محدودة (مونت كارلو)
+4. **شخّص** – كشف السبب الجذري باستخدام الأسئلة المحرمة وتحليل SAI
+5. **طعّم** – إنشاء بروتوكولات مناعية ومؤشرات جديدة لمنع التكرار
+
+**هذه الدورة السيبرنطيقية المكونة من 5 خطوات لا تضاهيها أي منصة في العالم.**
+
+---
+
+## 🔐 الأمان
+
+تم تصميم GOE OS بأمان على مستوى المؤسسات:
+
+- **مصادقة JWT** + **توكنات التحديث (Refresh Tokens)**
+- **التحكم في الصلاحيات (RBAC)**: 4 مستويات (viewer, analyst, admin, super_admin)
+- **الحد من معدل الطلبات (Rate Limiting)** باستخدام SlowAPI
+- **سجلات التدقيق (Audit Logs)** لتسجيل جميع العمليات
+- **نماذج Pydantic V2** للتحقق الصارم من المدخلات
+- **WebSocket آمن** للتعاون المباشر في الوقت الفعلي
+
+---
+
+## 🛠️ التقنيات المستخدمة
+
+| **الطبقة** | **التقنية** |
+|------------|-------------|
+| **الخادم الخلفي** | Python 3.10+، FastAPI، Uvicorn |
+| **الواجهة الأمامية** | React 18+، TypeScript، Tailwind CSS |
+| **قاعدة البيانات** | PostgreSQL (للإنتاج)، SQLite (للتطوير) |
+| **التخزين المؤقت** | Redis |
+| **الحاويات** | Docker، Docker Compose، Kubernetes |
+| **المراقبة** | Prometheus، Grafana |
+| **واجهات API** | REST (أكثر من 60 نقطة نهاية)، GraphQL، WebSocket |
+
+---
+
+## 📂 هيكل المشروع
+
+```text
+GOE_OS/
+├── app/                           # نقطة الدخول الرئيسية
+│   ├── __init__.py
+│   └── main.py                    # الخادم الرئيسي (أكثر من 60 نقطة نهاية)
+│
+├── core/                          # الأنظمة الأساسية
+│   ├── __init__.py
+│   ├── auto_loader.py             # اكتشاف تلقائي للمكونات
+│   ├── reputation.py              # نظام السمعة والتأثير
+│   ├── challenges.py              # نظام التحديات اليومية
+│   ├── templates.py               # القوالب الجاهزة
+│   ├── mentors.py                 # نظام المرشدين
+│   ├── gaps.py                    # طبقة الفجوات الشفافة
+│   ├── community.py               # مجتمع GOE
+│   ├── integration.py             # التكامل (Webhooks، مفاتيح API)
+│   └── schemaless_data.py         # طبقة البيانات اللامحدودة
+│
+├── kg_core/                       # جوهر الحوكمة المعرفية
+│   ├── __init__.py
+│   ├── indicators.py              # المؤشرات التسعة
+│   └── layers/
+│       ├── __init__.py
+│       └── diagnostics.py         # طبقة التشخيص
+│
+├── execution/                     # طبقة التنفيذ
+│   ├── __init__.py
+│   ├── historical/
+│   │   ├── __init__.py
+│   │   └── ingestor.py            # استيراد البيانات التاريخية
+│   └── backtesting/
+│       ├── __init__.py
+│       └── engine.py              # محرك الاختبار الخلفي
+│
+├── shared/                        # المكتبات المشتركة
+│   ├── __init__.py
+│   └── models/
+│       ├── __init__.py
+│       └── Indicator.py           # نموذج المؤشر الموحد
+│
+├── frontend/                      # الواجهة الأمامية (React/Next.js) - اختياري
+│   ├── package.json
+│   └── src/
+│       ├── App.tsx
+│       └── ...
+│
+├── mobile/                        # تطبيق الهاتف (React Native) - اختياري
+│   ├── package.json
+│   └── src/
+│       ├── App.tsx
+│       └── ...
+│
+├── requirements.txt               # متطلبات التشغيل
+├── .env.example                   # مثال لمتغيرات البيئة
+├── docker-compose.yml             # تشغيل الخدمات باستخدام Docker
+├── Dockerfile                     # صورة Docker
+├── LICENSE                        # رخصة MIT
+├── README.md                      # التوثيق (هذا الملف)
+└── .gitignore                     # استثناءات Git
 ```
 
 ---
+
+### 📌 شرح المكونات الرئيسية
+
+| **المكون** | **الوظيفة** |
+|------------|-------------|
+| **app/** | نقطة الدخول الرئيسية، تحتوي على `main.py` الذي يشغل الخادم |
+| **core/** | الأنظمة الأساسية: السمعة، التحديات، القوالب، المرشدين، المجتمع، التكامل، البيانات اللامحدودة |
+| **kg_core/** | جوهر الحوكمة المعرفية: المؤشرات التسعة وطبقة التشخيص |
+| **execution/** | التنفيذ العملي: استيراد البيانات التاريخية والاختبار الخلفي |
+| **shared/** | النماذج والأدوات المشتركة بين المكونات المختلفة |
+| **frontend/** | الواجهة الأمامية (React/Next.js) - اختياري |
+| **mobile/** | تطبيق الهاتف (React Native) - اختياري |
+
+---
+
+### 🧠 المؤشرات التسعة للحوكمة المعرفية
+
+| **المؤشر** | **الاسم بالإنجليزية** | **الاسم بالعربية** |
+|------------|------------------------|-------------------|
+| **PAI** | Procedural Absence Index | الغياب الإجرائي |
+| **CGI** | Credibility Gap Index | فجوة المصداقية |
+| **ERI** | Epistemic Rigidity Index | الجمود المعرفي |
+| **FQI** | Forbidden Questions Index | الأسئلة المحرمة |
+| **AGI** | Actor Gap Index | فجوة الفاعلين |
+| **DIC** | Diversity Index | التنوع المعرفي |
+| **MCI** | Modesty Index | التواضع المعرفي |
+| **LRI** | Legislative Rigidity Index | الجمود التشريعي |
+| **SAI** | Semantic Alienation Index | الاغتراب الدلالي |
+
+---
+
+### 🔄 دورة الحوكمة السيبرنطيقية الرباعية (4D)
+
+```text
+  🔍 1. اكتشف   → تحديد نقاط الضعف والفجوات المعرفية
+  🛠️ 2. أصلح    → توليد 5 حلول مع التحقق الرياضي (TGL)
+  🔮 3. استشرف  → محاكاة سيناريوهات مستقبلية غير محدودة (مونت كارلو)
+  🔬 4. شخّص    → كشف السبب الجذري باستخدام الأسئلة المحرمة وتحليل SAI
+  💉 5. طعّم     → إنشاء بروتوكولات مناعية لمنع التكرار
+```
+
+---
+
+## 🚀 التشغيل السريع
+
+### الخيار 1: التشغيل المحلي
+```bash
+# 1. نسخ المستودع
+git clone https://github.com/HalaData/GOE_OS-Platform-.git
+cd GOE_OS-Platform-
+
+# 2. إنشاء البيئة الافتراضية
+python -m venv venv
+source venv/bin/activate  # أو venv\Scripts\activate في Windows
+
+# 3. تثبيت المتطلبات
+pip install -r requirements.txt
+
+# 4. نسخ ملف المتغيرات البيئية
+cp .env.example .env
+
+# 5. تشغيل الخادم
+python -m app.main
+
+# 6. فتح التوثيق
+# http://localhost:8000/docs
+```
+
+### الخيار 2: التشغيل باستخدام Docker
+```bash
+# 1. تشغيل جميع الخدمات
+docker-compose up -d
+
+# 2. إيقاف الخدمات
+docker-compose down
+```
+
+---
+
+## 📚 نقاط النهاية API
+
+| **المجال** | **نقطة النهاية** | **الوصف** |
+|------------|------------------|------------|
+| **المصادقة** | `/api/v2/auth/register` | تسجيل مستخدم جديد |
+| | `/api/v2/auth/login` | تسجيل الدخول والحصول على التوكن |
+| | `/api/v2/auth/refresh` | تحديث التوكن |
+| | `/api/v2/auth/logout` | تسجيل الخروج |
+| **الحوكمة** | `/api/v2/govern` | تشخيص النصوص (محمي) |
+| | `/api/v2/govern/indicators` | الحصول على المؤشرات التسعة |
+| **التاريخ** | `/api/v2/historical/ingest` | استيراد البيانات التاريخية |
+| **الاختبار الخلفي** | `/api/v2/backtest/run` | تشغيل الاختبار الخلفي |
+| **السمعة** | `/api/v2/reputation/user` | إنشاء مستخدم |
+| | `/api/v2/reputation/star` | إضافة نجمة |
+| | `/api/v2/reputation/profile/{user_id}` | ملف المستخدم |
+| **التحديات** | `/api/v2/challenges/{user_id}` | التحديات اليومية |
+| **القوالب** | `/api/v2/templates` | القوالب الجاهزة |
+| **المجتمع** | `/api/v2/community/post` | إنشاء منشور |
+| | `/api/v2/community/comment` | إضافة تعليق |
+| **الإدارة** | `/api/v2/admin/users` | قائمة المستخدمين |
+| | `/api/v2/admin/audit-logs` | سجلات التدقيق |
+
+> التوثيق الكامل متاح عبر `/docs` عند تشغيل الخادم.
+
+---
+
+## 🌍 حالات الاستخدام
+
+| **القطاع** | **التطبيق** |
+|------------|-------------|
+| **الحكومة** | تحليل السياسات، كشف الفجوات التشريعية، مراقبة الثقة العامة |
+| **المالية** | تقييم المخاطر، الامتثال، التخطيط الاستراتيجي |
+| **الرعاية الصحية** | دعم التشخيص، الطب التجديدي، تحليل التغذية |
+| **الزراعة** | تخطيط المحاصيل، تحسين الري، التنبؤ بالإنتاج |
+| **التعليم** | التعلم التكيفي، توليد خطط تعليمية فردية، التلعيب |
+| **البحث العلمي** | اكتشاف المسلمات العلمية، توليد فرضيات متعددة التخصصات |
+| **الشركات الناشئة** | كشف فجوات السوق، توليد نماذج أعمال، تحليل المخاطر |
+| **الفنون والموسيقى** | توليد موسيقى، تحليل عاطفي، علاج فني |
+| **الإتاحة** | دعم الصم والبكم والمكفوفين |
+
+---
+
+## 🤝 المساهمة
+
+نرحب بمساهماتكم!
+
+1. انسخ المستودع (Fork)
+2. أنشئ فرعاً للميزة: `git checkout -b feature/amazing-feature`
+3. أضف تغييراتك: `git commit -m 'أضف ميزة رائعة'`
+4. ارفع الفرع: `git push origin feature/amazing-feature`
+5. افتح طلب سحب (Pull Request)
+
+---
+
+## 📝 الرخصة
+
+هذا المشروع مرخص تحت **رخصة MIT** – انظر ملف `LICENSE` للتفاصيل.
+
+---
+
+## 📞 التواصل
+
+- **GitHub:** [github.com/HalaData/GOE_OS-Platform-](https://github.com/HalaData/GOE_OS-Platform-)
+- **البريد الإلكتروني:** info.hala@yandex.com
+
+---
+
+## 💰 دعم المشروع
+
+إذا وجدت GOE OS مفيدة، يمكنك دعم تطويرها:
+
+- **GitHub Sponsors:** [Sponsor on GitHub](https://github.com/sponsors/yourusername)
+- **Buy Me a Coffee:** [buymeacoffee.com/goe-os](https://buymeacoffee.com/goe-os)
+
+---
+
+✨ **GOE OS – مفتوح. شفاف. متاح للجميع.**
+🌍 **بناء المعيار العالمي للحوكمة المعرفية.**
+
+
