@@ -1,44 +1,252 @@
+# ============================================================
+# GOE OS - DOCKER COMPOSE (Production Ready)
+# نظام GOE OS - تشغيل متكامل للإنتاج
+# ============================================================
+# 
+# 🚀 الخدمات المتضمنة:
+# 1. GOE OS Backend (FastAPI)
+# 2. PostgreSQL - قاعدة البيانات الرئيسية
+# 3. Redis - التخزين المؤقت والجلسات
+# 4. Prometheus - مراقبة الأداء وجمع المقاييس
+# 5. Grafana - لوحات تحكم مرئية
+# 6. Nginx - موازن التحميل والخدمات الثابتة (اختياري)
+#
+# 🔐 الأمان:
+# - جميع الخدمات تعمل على شبكة داخلية (internal)
+# - كلمات المرور عبر متغيرات البيئة
+# - وصلات آمنة بين الخدمات
+# ============================================================
+
 version: '3.8'
 
 services:
-  postgres:
-    image: postgres:15
-    environment:
-      POSTGRES_USER: goe
-      POSTGRES_PASSWORD: goe
-      POSTGRES_DB: goe_os
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    restart: unless-stopped
-
-  redis:
-    image: redis:alpine
-    ports:
-      - "6379:6379"
-    restart: unless-stopped
-
-  backend:
+  # ============================================================
+  # 1. GOE OS - الخدمة الرئيسية (Backend)
+  # ============================================================
+  goe-os:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: goe-os-backend
     ports:
-      - "8000:8000"
+      - "8000:8000"          # API الرئيسي
     environment:
-      - DATABASE_URL=postgresql://goe:goe@postgres:5432/goe_os
+      # ---- الإعدادات الأساسية ----
+      - PYTHONUNBUFFERED=1
+      - LOG_LEVEL=INFO
+      - ENVIRONMENT=production
+      
+      # ---- قاعدة البيانات ----
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      
+      # ---- التخزين المؤقت ----
       - REDIS_URL=redis://redis:6379/0
-      - SECRET_KEY=${SECRET_KEY:-your-super-secret-key}
-    depends_on:
-      - postgres
-      - redis
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      
+      # ---- الأمان ----
+      - SECRET_KEY=${SECRET_KEY:-your-super-secret-key-change-in-production}
+      - ALGORITHM=HS256
+      - ACCESS_TOKEN_EXPIRE_MINUTES=${ACCESS_TOKEN_EXPIRE_MINUTES:-30}
+      - REFRESH_TOKEN_EXPIRE_DAYS=${REFRESH_TOKEN_EXPIRE_DAYS:-7}
+      
+      # ---- CORS ----
+      - ALLOWED_ORIGINS=${ALLOWED_ORIGINS:-http://localhost:3000,http://localhost:5173}
+      
+      # ---- الإدارة ----
+      - ADMIN_USERNAME=${ADMIN_USERNAME:-admin}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin123}
+      - ADMIN_EMAIL=${ADMIN_EMAIL:-admin@goe-os.com}
+      
+      # ---- المراقبة ----
+      - PROMETHEUS_ENABLED=true
+      - PROMETHEUS_PORT=9090
+      
     volumes:
-      - ./app:/app
-      - ./core:/core
-      - ./kg_core:/kg_core
-      - ./execution:/execution
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+      - ./data:/app/data                    # بيانات المنصة
+      - ./logs:/app/logs                    # سجلات التشغيل
+      - ./reports:/app/reports              # التقارير المُنتجة
+      - ./uploads:/app/uploads              # الملفات المرفوعة
+      - ./backups:/app/backups              # النسخ الاحتياطية
+      
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      
     restart: unless-stopped
+    networks:
+      - goe-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+
+  # ============================================================
+  # 2. PostgreSQL - قاعدة البيانات الرئيسية
+  # ============================================================
+  postgres:
+    image: postgres:15-alpine
+    container_name: goe-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-goe}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-goe}
+      - POSTGRES_DB=${POSTGRES_DB:-goe_os}
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8 --lc-collate=C --lc-ctype=C
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-db:/docker-entrypoint-initdb.d  # سكربتات التهيئة الأولية
+      
+    restart: unless-stopped
+    networks:
+      - goe-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-goe} -d ${POSTGRES_DB:-goe_os}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  # ============================================================
+  # 3. Redis - التخزين المؤقت والجلسات
+  # ============================================================
+  redis:
+    image: redis:7-alpine
+    container_name: goe-redis
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-}
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    networks:
+      - goe-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  # ============================================================
+  # 4. Prometheus - مراقبة الأداء وجمع المقاييس
+  # ============================================================
+  prometheus:
+    image: prom/prometheus:v2.54.0
+    container_name: goe-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    restart: unless-stopped
+    networks:
+      - goe-network
+    depends_on:
+      - goe-os
+
+  # ============================================================
+  # 5. Grafana - لوحات تحكم مرئية
+  # ============================================================
+  grafana:
+    image: grafana/grafana:11.2.0
+    container_name: goe-grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER:-admin}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD:-admin}
+      - GF_INSTALL_PLUGINS=grafana-piechart-panel
+      - GF_SERVER_ROOT_URL=http://localhost:3000
+      - GF_SERVER_SERVE_FROM_SUB_PATH=true
+      - GF_AUTH_ANONYMOUS_ENABLED=false
+    restart: unless-stopped
+    networks:
+      - goe-network
+    depends_on:
+      - prometheus
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ============================================================
+  # 6. (اختياري) Nginx - موازن التحميل والخدمات الثابتة
+  # ============================================================
+  # nginx:
+  #   image: nginx:alpine
+  #   container_name: goe-nginx
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+  #     - ./nginx/ssl:/etc/nginx/ssl:ro
+  #     - ./frontend/dist:/usr/share/nginx/html:ro
+  #   depends_on:
+  #     - goe-os
+  #   restart: unless-stopped
+  #   networks:
+  #     - goe-network
+
+# ============================================================
+# الشبكات والمجلدات المشتركة
+# ============================================================
+
+networks:
+  goe-network:
+    driver: bridge
+    name: goe-network
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
 
 volumes:
   postgres_data:
+    name: goe_postgres_data
+    driver: local
+  redis_data:
+    name: goe_redis_data
+    driver: local
+  prometheus_data:
+    name: goe_prometheus_data
+    driver: local
+  grafana_data:
+    name: goe_grafana_data
+    driver: local
+
+# ============================================================
+# ملاحظات:
+# ============================================================
+# 🔐 قم بإنشاء ملف `.env` في نفس المجلد لتخزين المتغيرات الحساسة:
+#   POSTGRES_USER=goe
+#   POSTGRES_PASSWORD=your_secure_password
+#   SECRET_KEY=your_super_secret_key
+#   REDIS_PASSWORD=your_redis_password
+#   GRAFANA_ADMIN_PASSWORD=your_grafana_password
+#
+# 🚀 للتشغيل: docker-compose up -d
+# 🛑 للإيقاف: docker-compose down
+# 📊 لمراقبة السجلات: docker-compose logs -f goe-os
+# 🔄 لإعادة التشغيل: docker-compose restart goe-os
+# ============================================================
