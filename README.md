@@ -83,51 +83,70 @@
 | **واجهات API** | REST (60+ نقطة نهاية)، GraphQL، WebSocket |
 
 ---
-
-## 📂 هيكل المشروع
-
-```
+═══════════════════════════════════════════════════════════════════════════════
+                      🧠 GOE OS - PROJECT STRUCTURE
+                      نظام GOE OS - هيكل المشروع
+═══════════════════════════════════════════════════════════════════════════════
 
 GOE_OS/
-├── app/
-│   ├── init.py
-│   └── main.py                     # الملف الرئيسي (60+ نقطة نهاية)
-├── core/                           # الأنظمة الأساسية
-│   ├── init.py
-│   ├── auto_loader.py              # اكتشاف تلقائي للمكونات
-│   ├── reputation.py               # نظام السمعة والتأثير
-│   ├── challenges.py               # التحديات اليومية
-│   ├── templates.py                # القوالب الجاهزة
-│   ├── mentors.py                  # نظام المرشدين
-│   ├── gaps.py                     # طبقة الفجوات الشفافة
-│   ├── community.py                # مجتمع GOE
-│   ├── integration.py              # طبقة التكامل (Webhooks, API Keys)
-│   └── schemaless_data.py          # طبقة البيانات اللامحدودة
-├── kg_core/                        # جوهر الحوكمة المعرفية
-│   ├── init.py
-│   ├── indicators.py               # المؤشرات التسعة
-│   └── layers/
-│       ├── init.py
-│       └── diagnostics.py          # طبقة التشخيص
-├── execution/                      # التنفيذ العملي
-│   ├── init.py
-│   ├── historical/
-│   │   ├── init.py
-│   │   └── ingestor.py             # استيراد البيانات التاريخية
-│   └── backtesting/
-│       ├── init.py
-│       └── engine.py               # محرك الاختبار الخلفي
-├── shared/                         # المكتبات المشتركة
-│   ├── init.py
-│   └── models/
-│       ├── init.py
-│       └── Indicator.py            # نموذج المؤشر الموحد
-├── requirements.txt                # متطلبات التشغيل
-├── .env.example                    # مثال لمتغيرات البيئة
-├── docker-compose.yml              # تشغيل جميع الخدمات
-├── Dockerfile                      # صورة Docker
-├── LICENSE                         # رخصة MIT
-└── README.md                       # هذا الملف
+│
+├── 📁 app/                                    # Application Entry Point
+│   ├── __init__.py                            # Package initializer
+│   └── main.py                                # Main server (60+ API endpoints)
+│
+├── 📁 core/                                   # Core Systems (الأنظمة الأساسية)
+│   ├── __init__.py
+│   ├── auto_loader.py                         # Auto-discovery of components
+│   ├── reputation.py                          # Reputation & impact system
+│   ├── challenges.py                          # Daily challenges system
+│   ├── templates.py                           # Ready-to-use templates
+│   ├── mentors.py                             # Governance mentor system
+│   ├── gaps.py                                # Transparent gap layer
+│   ├── community.py                           # GOE Community
+│   ├── integration.py                         # Webhooks & API Keys
+│   └── schemaless_data.py                     # Unlimited data layer
+│
+├── 📁 kg_core/                                # Knowledge Governance Core (جوهر الحوكمة)
+│   ├── __init__.py
+│   ├── indicators.py                          # 9 Core Indicators
+│   └── 📁 layers/
+│       ├── __init__.py
+│       └── diagnostics.py                     # Diagnostic layer
+│
+├── 📁 execution/                              # Execution Layer (طبقة التنفيذ)
+│   ├── __init__.py
+│   ├── 📁 historical/
+│   │   ├── __init__.py
+│   │   └── ingestor.py                        # Historical data import
+│   └── 📁 backtesting/
+│       ├── __init__.py
+│       └── engine.py                          # Backtesting engine
+│
+├── 📁 shared/                                 # Shared Libraries (المكتبات المشتركة)
+│   ├── __init__.py
+│   └── 📁 models/
+│       ├── __init__.py
+│       └── Indicator.py                       # Unified indicator model
+│
+├── 📁 frontend/                               # Frontend (React/Next.js) - Optional
+│   ├── package.json
+│   └── 📁 src/
+│       ├── App.tsx
+│       └── ...
+│
+├── 📁 mobile/                                 # Mobile App (React Native) - Optional
+│   ├── package.json
+│   └── 📁 src/
+│       ├── App.tsx
+│       └── ...
+│
+├── 📄 requirements.txt                        # Python dependencies
+├── 📄 .env.example                            # Environment variables example
+├── 📄 docker-compose.yml                      # Docker orchestration
+├── 📄 Dockerfile                              # Docker image
+├── 📄 LICENSE                                 # MIT License
+├── 📄 README.md                               # Documentation (this file)
+└── 📄 .gitignore                              # Git exclusions
 
 ```
 
@@ -332,51 +351,6 @@ GOE OS is built with enterprise-grade security:
 | **APIs** | REST (60+ endpoints), GraphQL, WebSocket |
 
 ---
-
-## 📂 Project Structure
-
-```
-
-GOE_OS/
-├── app/
-│   ├── init.py
-│   └── main.py                     # Entry point (60+ API endpoints)
-├── core/                           # Core systems
-│   ├── init.py
-│   ├── auto_loader.py              # Auto-discovery of components
-│   ├── reputation.py               # Reputation & impact system
-│   ├── challenges.py               # Daily challenges
-│   ├── templates.py                # Ready-to-use templates
-│   ├── mentors.py                  # Mentor system
-│   ├── gaps.py                     # Transparent gap layer
-│   ├── community.py                # GOE Community
-│   ├── integration.py              # Integration layer (Webhooks, API Keys)
-│   └── schemaless_data.py          # Unlimited data layer
-├── kg_core/                        # Knowledge governance core
-│   ├── init.py
-│   ├── indicators.py               # 9 core indicators
-│   └── layers/
-│       ├── init.py
-│       └── diagnostics.py          # Diagnostic layer
-├── execution/                      # Execution layer
-│   ├── init.py
-│   ├── historical/
-│   │   ├── init.py
-│   │   └── ingestor.py             # Historical data import
-│   └── backtesting/
-│       ├── init.py
-│       └── engine.py               # Backtesting engine
-├── shared/                         # Shared libraries
-│   ├── init.py
-│   └── models/
-│       ├── init.py
-│       └── Indicator.py            # Unified indicator model
-├── requirements.txt                # Dependencies
-├── .env.example                    # Environment variables example
-├── docker-compose.yml              # Multi-service orchestration
-├── Dockerfile                      # Docker image
-├── LICENSE                         # MIT License
-└── README.md                       # This file
 
 ```
 
