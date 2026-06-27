@@ -1,0 +1,715 @@
+"""
+طبقة الحوكمة الإبستمولوجية والأنطولوجية - النسخة النهائية المتكاملة (v2.0)
+GOE OS - Epistemic-Ontological Governance Engine
+
+✅ الميزات:
+- التحليل الأنطولوجي (7 فئات) والإبستمولوجي (7 فئات).
+- كشف القطيعة الإبستمولوجية (دورة حياة الفراشة).
+- استباقي: توقع التحولات المعرفية قبل حدوثها.
+- تعمق في الجذور: تحليل متعدد المستويات (سطحي، متوسط، عميق).
+- تتبع "سلالة" الأفكار (أصل كل فكرة).
+- تطبيق الموجهات الخمسة: مجاني، لانهائي، شفاف، عملي، طلائعي.
+- تكامل مع محرك التنقية المعرفية والتطور المعرفي.
+"""
+
+import re
+import hashlib
+import json
+import math
+from typing import Dict, List, Optional, Any, Tuple
+from dataclasses import dataclass, field
+from datetime import datetime, timedelta
+from collections import defaultdict, Counter
+import logging
+import numpy as np
+
+logger = logging.getLogger(__name__)
+
+# ============================================================
+# 1. التعريفات الأساسية (الفئات والثوابت)
+# ============================================================
+
+class OntologicalCategory:
+    """فئات الأنطولوجيا (نماذج الوجود)"""
+    MATERIALIST = "مادية"
+    IDEALIST = "مثالية"
+    DUALIST = "ثنائية"
+    PHENOMENAL = "ظاهراتية"
+    RELATIONAL = "علائقية"
+    PROCESSUAL = "عملية"
+    EMERGENT = "ناشئة"
+    # فئة إضافية للجذور العميقة
+    TRANSCENDENT = "متجاوزة"
+
+class EpistemologicalCategory:
+    """فئات الإبستمولوجيا (مصادر المعرفة)"""
+    RATIONALIST = "عقلانية"
+    EMPIRICIST = "تجريبية"
+    INTUITIVE = "حدسية"
+    REVELATORY = "وحيانية"
+    PRAGMATIC = "براغماتية"
+    CONSTRUCTIVIST = "بنائية"
+    CRITICAL = "نقدية"
+    # فئة إضافية للجذور العميقة
+    TRANSCENDENTAL = "متسامية"
+
+@dataclass
+class OntologicalProfile:
+    dominant_category: str
+    scores: Dict[str, float]
+    evidence: List[str]
+    confidence: float
+    root_depth: str = "متوسط"  # سطحي، متوسط، عميق
+    lineage: List[str] = field(default_factory=list)
+
+@dataclass
+class EpistemologicalProfile:
+    dominant_category: str
+    scores: Dict[str, float]
+    evidence: List[str]
+    confidence: float
+    root_depth: str = "متوسط"
+    lineage: List[str] = field(default_factory=list)
+
+@dataclass
+class EpistemologicalRupture:
+    id: str
+    entity_id: str
+    from_ontology: str
+    to_ontology: str
+    from_epistemology: str
+    to_epistemology: str
+    rupture_point: str
+    description: str
+    severity: float
+    timestamp: str
+    predicted: bool = False
+    prediction_confidence: float = 0.0
+
+@dataclass
+class PhilosophicalIdentity:
+    entity_id: str
+    ontological_dominant: str
+    epistemological_dominant: str
+    root_depth: str
+    lineage: List[str]
+    transformation_stage: str  # egg, larva, pupa, butterfly
+    stability_score: float
+
+# ============================================================
+# 2. الكلمات المفتاحية المحسّنة (للتعمق في الجذور)
+# ============================================================
+
+class KeywordSets:
+    """مجموعات الكلمات المفتاحية للتحليل متعدد المستويات"""
+
+    # كلمات للتحليل السطحي (ظاهرية)
+    SURFACE_ONTOLOGY = {
+        OntologicalCategory.MATERIALIST: ["مادة", "جسم", "فيزيائي"],
+        OntologicalCategory.IDEALIST: ["فكر", "وعي", "روح"],
+        OntologicalCategory.DUALIST: ["نفس وجسد", "مادي ومعنوي"],
+        OntologicalCategory.PHENOMENAL: ["ظاهرة", "إدراك", "تجربة"],
+        OntologicalCategory.RELATIONAL: ["علاقة", "نسق", "شبكة"],
+        OntologicalCategory.PROCESSUAL: ["عملية", "تغير", "تحول"],
+        OntologicalCategory.EMERGENT: ["نشوء", "انبثاق", "ظهور"],
+        OntologicalCategory.TRANSCENDENT: ["متجاوز", "لا متناهي", "مطلق"]
+    }
+
+    # كلمات للتحليل المتوسط (افتراضات ضمنية)
+    MID_ONTOLOGY = {
+        OntologicalCategory.MATERIALIST: ["قوانين طبيعية", "سببية مادية", "تحديد بيولوجي"],
+        OntologicalCategory.IDEALIST: ["جوهر عقلي", "مثال أفلاطوني", "وعي مطلق"],
+        OntologicalCategory.DUALIST: ["انفصال الجسد عن الروح", "عالمين", "ثنائية خلقية"],
+        OntologicalCategory.PHENOMENAL: ["الوعي كظاهرة", "الذات المدركة", "العالم كما يظهر"],
+        OntologicalCategory.RELATIONAL: ["الوجود في السياق", "الشبكة كوجود", "الآخر"],
+        OntologicalCategory.PROCESSUAL: ["الصيرورة", "الزمن كجوهر", "التدفق"],
+        OntologicalCategory.EMERGENT: ["الظهور من التفاعل", "المستويات الناشئة", "التعقيد"],
+        OntologicalCategory.TRANSCENDENT: ["ما وراء الطبيعة", "المطلق", "اللامتناهي"]
+    }
+
+    # كلمات للتحليل العميق (جذور أنطولوجية)
+    DEEP_ONTOLOGY = {
+        OntologicalCategory.MATERIALIST: ["الإنسان كآلة", "العالم كمجرد مادة", "الحتمية المادية"],
+        OntologicalCategory.IDEALIST: ["الوجود كفكرة", "العقل هو الجوهر", "المثالية المطلقة"],
+        OntologicalCategory.DUALIST: ["الانفصال الوجودي", "صراع الجسد والروح", "ثنائية أبدية"],
+        OntologicalCategory.PHENOMENAL: ["الوعي هو كل شيء", "الظاهرة هي الواقع", "الإدراك يخلق الوجود"],
+        OntologicalCategory.RELATIONAL: ["الوجود من خلال الآخر", "الشبكة هي الكل", "العلاقة تسبق الكيان"],
+        OntologicalCategory.PROCESSUAL: ["الوجود حركة", "الصيرورة هي الحقيقة", "لا وجود ثابت"],
+        OntologicalCategory.EMERGENT: ["الكل أكبر من مجموع أجزائه", "النشوء الخلاق", "التطور المستمر"],
+        OntologicalCategory.TRANSCENDENT: ["الوجود متجاوز للإدراك", "الحقيقة المطلقة", "ما لا يدرك"]
+    }
+
+    # كلمات مفتاحية للإبستمولوجيا (مماثلة مع مستويات العمق)
+    SURFACE_EPISTEMOLOGY = {
+        EpistemologicalCategory.RATIONALIST: ["عقل", "منطق", "استدلال"],
+        EpistemologicalCategory.EMPIRICIST: ["تجربة", "ملاحظة", "حاسة"],
+        EpistemologicalCategory.INTUITIVE: ["حدس", "بصيرة", "إلهام"],
+        EpistemologicalCategory.REVELATORY: ["وحي", "تنزيل", "نبوة"],
+        EpistemologicalCategory.PRAGMATIC: ["نفع", "فائدة", "تطبيق"],
+        EpistemologicalCategory.CONSTRUCTIVIST: ["بناء اجتماعي", "ثقافة", "لغة"],
+        EpistemologicalCategory.CRITICAL: ["نقد", "شك", "مراجعة"],
+        EpistemologicalCategory.TRANSCENDENTAL: ["متسامي", "حدسي عليا", "معرفة مطلقة"]
+    }
+
+    MID_EPISTEMOLOGY = {
+        EpistemologicalCategory.RATIONALIST: ["الاستدلال القبلي", "القوانين العقلية", "البديهيات"],
+        EpistemologicalCategory.EMPIRICIST: ["الاستقراء", "البيانات الحسية", "التكرار"],
+        EpistemologicalCategory.INTUITIVE: ["الإدراك المباشر", "الوميض", "اللاوعي"],
+        EpistemologicalCategory.REVELATORY: ["الوحي الداخلي", "الإشراق", "التجلي"],
+        EpistemologicalCategory.PRAGMATIC: ["النتائج العملية", "الحلول", "الفعالية"],
+        EpistemologicalCategory.CONSTRUCTIVIST: ["الاتفاق الاجتماعي", "التأويل", "الخطاب"],
+        EpistemologicalCategory.CRITICAL: ["الفحص الذاتي", "الجدل", "التفكيك"],
+        EpistemologicalCategory.TRANSCENDENTAL: ["التجاوز", "المعرفة الميتافيزيقية", "الحدس العقلي"]
+    }
+
+    DEEP_EPISTEMOLOGY = {
+        EpistemologicalCategory.RATIONALIST: ["العقل يخلق الواقع", "المنطق هو الوجود", "المعرفة الفطرية"],
+        EpistemologicalCategory.EMPIRICIST: ["الخبرة هي كل شيء", "لا شيء في العقل لم يكن في الحس", "الملاحظة المباشرة"],
+        EpistemologicalCategory.INTUITIVE: ["المعرفة اللاواعية", "البصيرة الجوهرية", "الإدراك المباشر للحقيقة"],
+        EpistemologicalCategory.REVELATORY: ["المعرفة المقدسة", "الوحي كمصدر مطلق", "التجربة الدينية"],
+        EpistemologicalCategory.PRAGMATIC: ["الحقيقة هي ما ينفع", "المعرفة أداة", "التطبيق العملي"],
+        EpistemologicalCategory.CONSTRUCTIVIST: ["الحقيقة تُبنى", "المعرفة نسبية", "السياق يخلق المعنى"],
+        EpistemologicalCategory.CRITICAL: ["الشك المنهجي", "نقد كل شيء", "التحرر من الأوهام"],
+        EpistemologicalCategory.TRANSCENDENTAL: ["المعرفة تتجاوز الحواس", "الإدراك العقلي الخالص", "التأمل"]
+    }
+
+# ============================================================
+# 3. المحلل متعدد المستويات (للتعمق في الجذور)
+# ============================================================
+
+class MultiDepthAnalyzer:
+    """
+    يحلل النصوص على ثلاثة مستويات: سطحي، متوسط، عميق.
+    يستخدم مجموعات كلمات مفتاحية مختلفة لكل مستوى.
+    """
+
+    def __init__(self):
+        self.depth_levels = ["سطحي", "متوسط", "عميق"]
+        self.ontology_keywords = {
+            "سطحي": KeywordSets.SURFACE_ONTOLOGY,
+            "متوسط": KeywordSets.MID_ONTOLOGY,
+            "عميق": KeywordSets.DEEP_ONTOLOGY
+        }
+        self.epistemology_keywords = {
+            "سطحي": KeywordSets.SURFACE_EPISTEMOLOGY,
+            "متوسط": KeywordSets.MID_EPISTEMOLOGY,
+            "عميق": KeywordSets.DEEP_EPISTEMOLOGY
+        }
+
+    def analyze_ontology(self, text: str, depth: str = "متوسط") -> OntologicalProfile:
+        """تحليل أنطولوجي بمستوى عمق محدد."""
+        if depth not in self.ontology_keywords:
+            depth = "متوسط"
+        keywords = self.ontology_keywords[depth]
+
+        scores = {cat: 0 for cat in keywords.keys()}
+        evidence = []
+
+        for category, words in keywords.items():
+            count = 0
+            for word in words:
+                count += len(re.findall(rf'\b{word}\b', text, re.I))
+            scores[category] = count
+            if count > 0:
+                evidence.append(f"{depth}: كلمات من فئة '{category}' ({count})")
+
+        total = sum(scores.values())
+        if total > 0:
+            for cat in scores:
+                scores[cat] = round(scores[cat] / total, 3)
+
+        dominant = max(scores, key=scores.get) if scores else OntologicalCategory.MATERIALIST
+        confidence = min(1.0, len(evidence) / 10)
+
+        return OntologicalProfile(
+            dominant_category=dominant,
+            scores=scores,
+            evidence=evidence[:5],
+            confidence=confidence,
+            root_depth=depth
+        )
+
+    def analyze_epistemology(self, text: str, depth: str = "متوسط") -> EpistemologicalProfile:
+        """تحليل إبستمولوجي بمستوى عمق محدد."""
+        if depth not in self.epistemology_keywords:
+            depth = "متوسط"
+        keywords = self.epistemology_keywords[depth]
+
+        scores = {cat: 0 for cat in keywords.keys()}
+        evidence = []
+
+        for category, words in keywords.items():
+            count = 0
+            for word in words:
+                count += len(re.findall(rf'\b{word}\b', text, re.I))
+            scores[category] = count
+            if count > 0:
+                evidence.append(f"{depth}: كلمات من فئة '{category}' ({count})")
+
+        total = sum(scores.values())
+        if total > 0:
+            for cat in scores:
+                scores[cat] = round(scores[cat] / total, 3)
+
+        dominant = max(scores, key=scores.get) if scores else EpistemologicalCategory.EMPIRICIST
+        confidence = min(1.0, len(evidence) / 10)
+
+        return EpistemologicalProfile(
+            dominant_category=dominant,
+            scores=scores,
+            evidence=evidence[:5],
+            confidence=confidence,
+            root_depth=depth
+        )
+
+    def analyze_full_depth(self, text: str) -> Dict[str, Any]:
+        """تحليل كامل على جميع المستويات."""
+        results = {}
+        for depth in self.depth_levels:
+            results[depth] = {
+                "ontology": self.analyze_ontology(text, depth),
+                "epistemology": self.analyze_epistemology(text, depth)
+            }
+        return results
+
+# ============================================================
+# 4. كاشف القطيعة الاستباقي (Proactive Rupture Detector)
+# ============================================================
+
+class ProactiveRuptureDetector:
+    """
+    يكتشف القطائع الإبستمولوجية بشكل استباقي (توقعها قبل حدوثها).
+    يستخدم تحليل الاتجاهات والنماذج التنبؤية البسيطة.
+    """
+
+    def __init__(self):
+        self.history: Dict[str, List[Dict]] = defaultdict(list)
+        self.rupture_threshold = 0.35
+        self.prediction_window = 3  # عدد النقاط الزمنية للنظر إلى الأمام
+
+    def record_state(self, entity_id: str, ont_profile: OntologicalProfile, epi_profile: EpistemologicalProfile):
+        """تسجيل حالة معرفية للكيان."""
+        self.history[entity_id].append({
+            "timestamp": datetime.utcnow().isoformat(),
+            "ontology": ont_profile.dominant_category,
+            "epistemology": epi_profile.dominant_category,
+            "ont_scores": ont_profile.scores.copy(),
+            "epi_scores": epi_profile.scores.copy(),
+            "depth": ont_profile.root_depth
+        })
+
+    def detect_rupture(self, entity_id: str, new_ont: OntologicalProfile, new_epi: EpistemologicalProfile) -> Optional[EpistemologicalRupture]:
+        """اكتشاف القطيعة الحالية (مباشر)."""
+        if entity_id not in self.history or len(self.history[entity_id]) < 2:
+            return None
+
+        # استرجاع آخر حالة
+        last_state = self.history[entity_id][-1]
+        old_ont_dom = last_state["ontology"]
+        old_epi_dom = last_state["epistemology"]
+
+        # حساب التغير
+        ont_change = self._calculate_change(last_state["ont_scores"], new_ont.scores)
+        epi_change = self._calculate_change(last_state["epi_scores"], new_epi.scores)
+
+        if ont_change > self.rupture_threshold or epi_change > self.rupture_threshold:
+            return EpistemologicalRupture(
+                id=hashlib.md5(f"{entity_id}_{datetime.utcnow().isoformat()}".encode()).hexdigest()[:16],
+                entity_id=entity_id,
+                from_ontology=old_ont_dom,
+                to_ontology=new_ont.dominant_category,
+                from_epistemology=old_epi_dom,
+                to_epistemology=new_epi.dominant_category,
+                rupture_point=datetime.utcnow().isoformat(),
+                description=f"تحول أنطولوجي: {old_ont_dom} → {new_ont.dominant_category}، إبستمولوجي: {old_epi_dom} → {new_epi.dominant_category}",
+                severity=max(ont_change, epi_change),
+                timestamp=datetime.utcnow().isoformat(),
+                predicted=False,
+                prediction_confidence=0.0
+            )
+        return None
+
+    def predict_rupture(self, entity_id: str) -> List[Dict]:
+        """
+        توقع القطائع المستقبلية بناءً على الاتجاهات التاريخية.
+        """
+        if entity_id not in self.history or len(self.history[entity_id]) < 4:
+            return []
+
+        states = self.history[entity_id]
+        if len(states) < self.prediction_window:
+            return []
+
+        # تحليل الاتجاهات الحديثة
+        recent = states[-self.prediction_window:]
+        ont_trends = self._calculate_trends(recent, "ont_scores")
+        epi_trends = self._calculate_trends(recent, "epi_scores")
+
+        predictions = []
+
+        # التنبؤ بالتغير في الأنطولوجيا
+        for cat, trend in ont_trends.items():
+            if trend > 0.02:  # زيادة مستمرة
+                predictions.append({
+                    "type": "ontology",
+                    "category": cat,
+                    "trend": round(trend, 3),
+                    "confidence": min(1.0, trend * 10),
+                    "direction": "تصاعدي",
+                    "estimated_time": "قريب"
+                })
+            elif trend < -0.02:
+                predictions.append({
+                    "type": "ontology",
+                    "category": cat,
+                    "trend": round(trend, 3),
+                    "confidence": min(1.0, abs(trend) * 10),
+                    "direction": "تنازلي",
+                    "estimated_time": "قريب"
+                })
+
+        # التنبؤ بالتغير في الإبستمولوجيا
+        for cat, trend in epi_trends.items():
+            if trend > 0.02:
+                predictions.append({
+                    "type": "epistemology",
+                    "category": cat,
+                    "trend": round(trend, 3),
+                    "confidence": min(1.0, trend * 10),
+                    "direction": "تصاعدي",
+                    "estimated_time": "قريب"
+                })
+            elif trend < -0.02:
+                predictions.append({
+                    "type": "epistemology",
+                    "category": cat,
+                    "trend": round(trend, 3),
+                    "confidence": min(1.0, abs(trend) * 10),
+                    "direction": "تنازلي",
+                    "estimated_time": "قريب"
+                })
+
+        return predictions
+
+    def _calculate_change(self, old_scores: Dict, new_scores: Dict) -> float:
+        total = 0.0
+        for cat in old_scores:
+            total += abs(old_scores.get(cat, 0) - new_scores.get(cat, 0))
+        return round(total / 2, 3)
+
+    def _calculate_trends(self, states: List[Dict], score_key: str) -> Dict[str, float]:
+        """
+        حساب اتجاهات التغير في الفئات خلال النقاط الزمنية الأخيرة.
+        يستخدم الانحدار الخطي البسيط.
+        """
+        if len(states) < 2:
+            return {}
+        trends = {}
+        # استخراج جميع الفئات
+        categories = set()
+        for s in states:
+            categories.update(s[score_key].keys())
+
+        for cat in categories:
+            values = []
+            for s in states:
+                values.append(s[score_key].get(cat, 0))
+            if len(values) > 1:
+                x = np.arange(len(values))
+                slope = np.polyfit(x, values, 1)[0]
+                trends[cat] = float(slope)
+        return trends
+
+# ============================================================
+# 5. متتبع السلالة المعرفية (Knowledge Lineage Tracker)
+# ============================================================
+
+class KnowledgeLineageTracker:
+    """
+    يتتبع أصل الأفكار (سلالة المعرفة) من خلال تحليل التشابه الدلالي والزمني.
+    """
+
+    def __init__(self):
+        self.lineage_graph: Dict[str, List[str]] = defaultdict(list)  # idea_id -> parent_ids
+        self.idea_store: Dict[str, Dict] = {}
+
+    def register_idea(self, text: str, entity_id: str) -> str:
+        """تسجيل فكرة جديدة واستخراج سلالتها."""
+        idea_id = hashlib.md5(f"{text[:100]}_{entity_id}_{datetime.utcnow().isoformat()}".encode()).hexdigest()[:16]
+        self.idea_store[idea_id] = {
+            "text": text[:500],
+            "entity_id": entity_id,
+            "timestamp": datetime.utcnow().isoformat(),
+            "fingerprint": self._extract_fingerprint(text)
+        }
+        return idea_id
+
+    def _extract_fingerprint(self, text: str) -> str:
+        """استخراج بصمة دلالية للنص (مجموعة من الكلمات المفتاحية)."""
+        # بسيط: استخراج الكلمات الأكثر تكراراً
+        words = re.findall(r'\b\w{4,}\b', text.lower())
+        common = [w for w in set(words) if words.count(w) > 1 and w not in ["هذا", "ذلك", "على", "في", "من"]]
+        return " ".join(common[:10])
+
+    def find_lineage(self, text: str, entity_id: str) -> List[str]:
+        """البحث عن سلالة فكرة جديدة."""
+        fingerprint = self._extract_fingerprint(text)
+        candidates = []
+        for idea_id, idea in self.idea_store.items():
+            if idea["entity_id"] != entity_id:
+                continue
+            similarity = self._calculate_similarity(fingerprint, idea["fingerprint"])
+            if similarity > 0.5:
+                candidates.append((idea_id, similarity))
+
+        # ترتيب حسب التشابه
+        candidates.sort(key=lambda x: x[1], reverse=True)
+        return [c[0] for c in candidates[:3]]
+
+    def _calculate_similarity(self, fp1: str, fp2: str) -> float:
+        """حساب التشابه بين بصمتين."""
+        if not fp1 or not fp2:
+            return 0.0
+        words1 = set(fp1.split())
+        words2 = set(fp2.split())
+        intersection = words1 & words2
+        union = words1 | words2
+        return len(intersection) / len(union) if union else 0.0
+
+# ============================================================
+# 6. المحرك الرئيسي (v2.0 - النهائي المتكامل)
+# ============================================================
+
+class EpistemicOntologicalEngineV2:
+    """
+    المحرك الرئيسي للحوكمة الإبستمولوجية والأنطولوجية - النسخة النهائية.
+    يطبق الموجهات الخمسة، الاستباقية، التعمق في الجذور.
+    """
+
+    def __init__(self):
+        self.depth_analyzer = MultiDepthAnalyzer()
+        self.rupture_detector = ProactiveRuptureDetector()
+        self.lineage_tracker = KnowledgeLineageTracker()
+        self.identity_cache: Dict[str, PhilosophicalIdentity] = {}
+        logger.info("🧠 Epistemic-Ontological Engine v2.0 initialized.")
+
+    def analyze_text(self, text: str, entity_id: str = None) -> Dict:
+        """
+        تحليل شامل للنص: أنطولوجيا، إبستمولوجيا، قطعية، سلالة، استباق.
+        """
+        # 1. التحليل متعدد المستويات
+        depth_results = self.depth_analyzer.analyze_full_depth(text)
+
+        # 2. استخلاص الملفات على المستوى المتوسط (كمرجع)
+        ont_profile = depth_results["متوسط"]["ontology"]
+        epi_profile = depth_results["متوسط"]["epistemology"]
+
+        # 3. تسجيل الحالة للكشف عن القطيعة
+        if entity_id:
+            self.rupture_detector.record_state(entity_id, ont_profile, epi_profile)
+
+        # 4. كشف القطيعة الحالية
+        rupture = None
+        if entity_id:
+            rupture = self.rupture_detector.detect_rupture(entity_id, ont_profile, epi_profile)
+
+        # 5. التنبؤ بالقطيعة المستقبلية
+        predictions = []
+        if entity_id:
+            predictions = self.rupture_detector.predict_rupture(entity_id)
+
+        # 6. تتبع السلالة المعرفية
+        lineage = []
+        if entity_id:
+            lineage = self.lineage_tracker.find_lineage(text, entity_id)
+            self.lineage_tracker.register_idea(text, entity_id)
+
+        # 7. توليد الهوية الفلسفية
+        identity = self._generate_identity(entity_id, ont_profile, epi_profile, rupture, predictions)
+
+        # 8. التقرير النهائي (شفاف)
+        report = {
+            "entity_id": entity_id,
+            "depth_analysis": {
+                depth: {
+                    "ontology": {
+                        "dominant": r["ontology"].dominant_category,
+                        "scores": r["ontology"].scores,
+                        "confidence": r["ontology"].confidence,
+                        "evidence": r["ontology"].evidence
+                    },
+                    "epistemology": {
+                        "dominant": r["epistemology"].dominant_category,
+                        "scores": r["epistemology"].scores,
+                        "confidence": r["epistemology"].confidence,
+                        "evidence": r["epistemology"].evidence
+                    }
+                } for depth, r in depth_results.items()
+            },
+            "rupture": {
+                "detected": rupture is not None,
+                "details": rupture.__dict__ if rupture else None
+            },
+            "predictions": predictions,
+            "lineage": lineage,
+            "philosophical_identity": identity.__dict__ if identity else None,
+            "timestamp": datetime.utcnow().isoformat()
+        }
+
+        return report
+
+    def _generate_identity(self, entity_id: str, ont: OntologicalProfile, epi: EpistemologicalProfile,
+                           rupture: Optional[EpistemologicalRupture], predictions: List[Dict]) -> Optional[PhilosophicalIdentity]:
+        """توليد الهوية الفلسفية للكيان."""
+        if not entity_id:
+            return None
+
+        # تحديد مرحلة التحول (دورة حياة الفراشة)
+        stages = self._get_transformation_stage(entity_id, rupture)
+
+        # حساب درجة الاستقرار
+        stability = self._calculate_stability(entity_id)
+
+        identity = PhilosophicalIdentity(
+            entity_id=entity_id,
+            ontological_dominant=ont.dominant_category,
+            epistemological_dominant=epi.dominant_category,
+            root_depth=ont.root_depth,
+            lineage=[],
+            transformation_stage=stages[-1] if stages else "egg",
+            stability_score=stability
+        )
+
+        self.identity_cache[entity_id] = identity
+        return identity
+
+    def _get_transformation_stage(self, entity_id: str, rupture: Optional[EpistemologicalRupture]) -> List[str]:
+        """تحديد مرحلة التحول المعرفي (دورة حياة الفراشة)."""
+        if entity_id not in self.rupture_detector.history:
+            return ["egg"]
+
+        history = self.rupture_detector.history[entity_id]
+        if len(history) < 2:
+            return ["egg"]
+
+        stages = []
+        if rupture:
+            stages.append("pupa")  # تحول جاري
+        elif len(history) > 5:
+            stages.append("butterfly")  # نضج
+        elif len(history) > 3:
+            stages.append("larva")  # نمو
+        else:
+            stages.append("egg")
+
+        return stages
+
+    def _calculate_stability(self, entity_id: str) -> float:
+        """حساب درجة الاستقرار المعرفي للكيان."""
+        if entity_id not in self.rupture_detector.history:
+            return 1.0
+
+        history = self.rupture_detector.history[entity_id]
+        if len(history) < 2:
+            return 1.0
+
+        # حساب متوسط التغير بين الحالات المتتالية
+        changes = []
+        for i in range(1, len(history)):
+            ont_change = self.rupture_detector._calculate_change(
+                history[i-1]["ont_scores"],
+                history[i]["ont_scores"]
+            )
+            epi_change = self.rupture_detector._calculate_change(
+                history[i-1]["epi_scores"],
+                history[i]["epi_scores"]
+            )
+            changes.append((ont_change + epi_change) / 2)
+
+        avg_change = sum(changes) / len(changes) if changes else 0
+        stability = max(0.0, 1.0 - avg_change * 3)
+        return round(stability, 2)
+
+    def get_philosophical_identity(self, entity_id: str) -> Optional[Dict]:
+        """استرجاع الهوية الفلسفية المخزنة لكيان."""
+        if entity_id in self.identity_cache:
+            return self.identity_cache[entity_id].__dict__
+        return None
+
+    def get_history(self, entity_id: str, limit: int = 20) -> List[Dict]:
+        """استرجاع التاريخ المعرفي للكيان."""
+        if entity_id not in self.rupture_detector.history:
+            return []
+        return self.rupture_detector.history[entity_id][-limit:]
+
+# ============================================================
+# 7. نقاط النهاية API (متكاملة مع المنصة)
+# ============================================================
+
+from fastapi import APIRouter, HTTPException
+
+router = APIRouter(prefix="/api/v2/epistemic-ontological", tags=["Epistemic-Ontological Governance"])
+
+_engine = None
+
+def get_engine() -> EpistemicOntologicalEngineV2:
+    global _engine
+    if _engine is None:
+        _engine = EpistemicOntologicalEngineV2()
+    return _engine
+
+@router.post("/analyze")
+async def analyze_text(text: str, entity_id: str = None):
+    """تحليل النص من منظور أنطولوجي وإبستمولوجي (بمستويات متعددة)."""
+    engine = get_engine()
+    return engine.analyze_text(text, entity_id)
+
+@router.get("/entity/{entity_id}/identity")
+async def get_philosophical_identity(entity_id: str):
+    """استرجاع الهوية الفلسفية للكيان."""
+    engine = get_engine()
+    identity = engine.get_philosophical_identity(entity_id)
+    if not identity:
+        raise HTTPException(status_code=404, detail="Entity not found or not analyzed yet.")
+    return identity
+
+@router.get("/entity/{entity_id}/history")
+async def get_entity_history(entity_id: str, limit: int = 20):
+    """استرجاع التاريخ المعرفي للكيان."""
+    engine = get_engine()
+    return {"history": engine.get_history(entity_id, limit)}
+
+@router.get("/entity/{entity_id}/predictions")
+async def get_predictions(entity_id: str):
+    """التنبؤ بالتحولات المعرفية المستقبلية."""
+    engine = get_engine()
+    if entity_id not in engine.rupture_detector.history:
+        raise HTTPException(status_code=404, detail="Entity not found or not analyzed yet.")
+    predictions = engine.rupture_detector.predict_rupture(entity_id)
+    return {"predictions": predictions}
+
+@router.get("/categories")
+async def get_categories():
+    """فئات الأنطولوجيا والإبستمولوجيا المتاحة."""
+    return {
+        "ontology": [
+            {"id": "materialist", "name": "مادية"},
+            {"id": "idealist", "name": "مثالية"},
+            {"id": "dualist", "name": "ثنائية"},
+            {"id": "phenomenal", "name": "ظاهراتية"},
+            {"id": "relational", "name": "علائقية"},
+            {"id": "processual", "name": "عملية"},
+            {"id": "emergent", "name": "ناشئة"},
+            {"id": "transcendent", "name": "متجاوزة"}
+        ],
+        "epistemology": [
+            {"id": "rationalist", "name": "عقلانية"},
+            {"id": "empiricist", "name": "تجريبية"},
+            {"id": "intuitive", "name": "حدسية"},
+            {"id": "revelatory", "name": "وحيانية"},
+            {"id": "pragmatic", "name": "براغماتية"},
+            {"id": "constructivist", "name": "بنائية"},
+            {"id": "critical", "name": "نقدية"},
+            {"id": "transcendental", "name": "متسامية"}
+        ]
+    }
